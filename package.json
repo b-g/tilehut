@@ -1,0 +1,17 @@
+{
+  "name": "mini-mbtiles-server",
+  "author": "Benedikt Groß <bg@benedikt-gross.de>",
+  "description": "a super simple server for mbtiles",
+  "version": "0.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "4.5.1",
+    "mbtiles": "0.4.3"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/b-g/mini-mbtiles-server"
+  }
+}
