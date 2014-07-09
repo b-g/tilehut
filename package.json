@@ -3,7 +3,6 @@
   "author": "Benedikt Groß <bg@benedikt-gross.de>",
   "description": "a super simple server for mbtiles",
   "version": "0.0.0",
-  "description": "",
   "main": "server.js",
   "dependencies": {
     "express": "4.5.1",
