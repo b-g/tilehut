@@ -12,21 +12,24 @@ app.get('/', function(req, res){
 
 app.get('/:s/:z/:x/:y.*', function(req, res) {
   new MBTiles(p.join(tilesDir, req.param('s') + '.mbtiles'), function(err, mbtiles) {
-    mbtiles.getTile(req.param('z'), req.param('x'), req.param('y'), function(err, tile, headers) {
-      if (err) {
-        res.set({
-          "Content-Type": "text/plain"
-        });
-        res.status(404).send('Tile rendering error: ' + err + '\n');
-      } else {
-        res.set({
-          "Content-Type": "image/png",
-          // "Cache-Control": "public, max-age=2592000"  // leave this out for no caching - default is 1 month
-        });
-        res.send(tile);
-      }
-    });
-    if (err) console.log("error opening database");
+    if (err) {
+      console.log("Error opening database");
+      res.set({ "Content-Type": "text/plain" });
+      res.status(500).send('Error opening database -> ' + err + '\n');
+    } else {    
+      mbtiles.getTile(req.param('z'), req.param('x'), req.param('y'), function(err, tile, headers) {
+        if (err) {
+          res.set({ "Content-Type": "text/plain" });
+          res.status(404).send('Tile rendering error -> ' + err + '\n');
+        } else {
+          res.set({
+            "Content-Type": "image/png",
+            // "Cache-Control": "public, max-age=2592000"  // leave this out for no caching - default is 1 month
+          });
+          res.send(tile);
+        }
+      });
+    }
   });
 });
 
