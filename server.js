@@ -1,7 +1,8 @@
 var express = require("express"),
   app = express(),
   MBTiles = require('mbtiles'),
-  p = require("path");
+  p = require("path"),
+  fs = require('fs');
 
 // path to the mbtiles; default is the server.js directory
 var tilesDir = __dirname;
@@ -11,16 +12,15 @@ app.get('/', function(req, res){
 });
 
 app.get('/:s/:z/:x/:y.*', function(req, res) {
-  new MBTiles(p.join(tilesDir, req.param('s') + '.mbtiles'), function(err, mbtiles) {
-    if (err) {
-      console.log("Error opening database");
-      res.set({ "Content-Type": "text/plain" });
-      res.status(500).send('Error opening database -> ' + err + '\n');
-    } else {    
+  var mbtilesfile = p.join(tilesDir, req.param('s') + '.mbtiles');
+  if (fs.existsSync(mbtilesfile)) {
+    new MBTiles(mbtilesfile, function(err, mbtiles) {
+      if (err) return internalError(res, err);   
       mbtiles.getTile(req.param('z'), req.param('x'), req.param('y'), function(err, tile, headers) {
         if (err) {
-          res.set({ "Content-Type": "text/plain" });
-          res.status(404).send('Tile rendering error -> ' + err + '\n');
+          var msg = 'tile rendering error -> ' + req.originalUrl + ' ' + err;
+          console.error(msg);
+          res.status(404).send(msg);
         } else {
           res.set({
             "Content-Type": "image/png",
@@ -29,10 +29,17 @@ app.get('/:s/:z/:x/:y.*', function(req, res) {
           res.send(tile);
         }
       });
-    }
-  });
+    });
+  } else {
+    return internalError(res, "mbtiles file doesn't exist -> "+mbtilesfile);
+  }
 });
 
 var server = app.listen(3000, function() {
   console.log('Serving HTTP on http://localhost:%d/', server.address().port);
 });
+
+function internalError(res, err) {
+  if (err) console.error(err);
+  res.send(500, 'internal server error');
+}
