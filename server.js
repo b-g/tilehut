@@ -1,18 +1,21 @@
-var express = require("express"),
-  app = express(),
-  MBTiles = require('mbtiles'),
-  p = require("path"),
-  fs = require('fs');
+var PORT = process.env.OPENSHIFT_INTERNAL_PORT || process.env.OPENSHIFT_NODEJS_PORT  || 3000;
+var IPADDRESS = process.env.OPENSHIFT_INTERNAL_IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
-// path to the mbtiles; default is the server.js directory
-var tilesDir = __dirname;
+var express = require("express")
+  , app = express()
+  , MBTiles = require('mbtiles')
+  , path = require("path")
+  , fs = require('fs')
+  ;
+
+var tilesDir = process.env.OPENSHIFT_DATA_DIR || __dirname;
 
 app.get('/', function(req, res){
-  res.send('hello! mini-mbtiles-server bellow');
+  res.send('hello! tilehut bellow');
 });
 
 app.get('/:s/:z/:x/:y.*', function(req, res) {
-  var mbtilesfile = p.join(tilesDir, req.param('s') + '.mbtiles');
+  var mbtilesfile = path.join(tilesDir, req.param('s') + '.mbtiles');
   if (fs.existsSync(mbtilesfile)) {
     new MBTiles(mbtilesfile, function(err, mbtiles) {
       if (err) return internalError(res, err);   
@@ -24,7 +27,8 @@ app.get('/:s/:z/:x/:y.*', function(req, res) {
         } else {
           res.set({
             "Content-Type": "image/png",
-            // "Cache-Control": "public, max-age=2592000"  // leave this out for no caching - default is 1 month
+            // leave this out for no caching - default is 1 month
+            "Cache-Control": "public, max-age=2592000"
           });
           res.send(tile);
         }
@@ -35,11 +39,8 @@ app.get('/:s/:z/:x/:y.*', function(req, res) {
   }
 });
 
-var server = app.listen(3000, function() {
-  console.log('Serving HTTP on http://localhost:%d/', server.address().port);
+var server = require('http').createServer(app);
+server.listen(PORT, IPADDRESS, function() {
+  var url = "http://" + server.address().address +":"+ server.address().port;
+  console.log('Serving HTTP on', url);
 });
-
-function internalError(res, err) {
-  if (err) console.error(err);
-  res.send(500, 'internal server error');
-}

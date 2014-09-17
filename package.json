@@ -1,16 +1,21 @@
 {
-  "name": "mini-mbtiles-server",
-  "author": "Benedikt Groß <bg@benedikt-gross.de>",
-  "description": "a super simple server for mbtiles",
-  "version": "0.0.0",
-  "main": "server.js",
+  "name": "tilehut",
+  "version": "1.0.0",
+  "description": "your box for mbtiles",
+  "url": "https://github.com/b-g/tilehut",
+  "author": "mr. tilehut",
+  "contributors": [
+    "Benedikt Groß <b-g> (http://benedikt-gross.de/)",
+    "Joey Lee <joeyklee> (http://jk-lee.com/)"
+  ],
   "dependencies": {
-    "express": "4.5.1",
-    "mbtiles": "0.4.3"
+    "express": "4.9.1",
+    "mbtiles": "0.5.0"
   },
-  "devDependencies": {},
+  "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/b-g/mini-mbtiles-server"
-  }
+    "url": "http://github.com/b-g/tilehut.git"
+  },
+  "devDependencies": {}
 }
