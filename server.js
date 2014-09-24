@@ -38,6 +38,29 @@ app.get('/:s/:z/:x/:y.*', function(req, res) {
   });
 });
 
+app.get('/:s/metadata.json', function(req, res) {
+  var mbtilesfile = path.join(TILES_DIR, req.param('s') + '.mbtiles');
+  fs.exists(mbtilesfile, function (exists) {
+    if (!exists) {
+      console.error("mbtiles file doesn't exist -> path: "+mbtilesfile);
+      return res.sendStatus(404);
+    }
+    new MBTiles(mbtilesfile, function(err, mbtiles) {
+      if (err) {
+        console.error("cannot initialize MBTiles object -> "+err);
+        return res.sendStatus(500);
+      }
+      mbtiles.getInfo(function(err, info) {
+        if (err) {
+          console.error('tile rendering error -> url: ' + req.originalUrl + ', error: ' + err);
+          return res.sendStatus(404);
+        }
+        res.send(info);
+      });
+    });
+  });
+});
+
 var server = require('http').createServer(app);
 server.listen(PORT, IPADDRESS, function() {
   var url = "http://" + server.address().address +":"+ server.address().port;
