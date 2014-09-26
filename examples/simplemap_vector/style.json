@@ -1,0 +1,27 @@
+{
+  "version": 5,
+  "sources": {
+    "mapbox": {
+      "type": "vector",
+      "url": "meta.json",
+      "maxzoom": 15
+    }
+  },
+  "layers": [
+  {
+    "id": "background",
+    "style": {
+      "background-color": "#C5D1ED"
+    },
+    "type": "background"
+  },
+  {
+    "source": "mapbox",
+    "source-layer": "admin-countries",
+    "style": {
+      "fill-color": "#EDF0FD",
+      "fill-outline-color": "#FCFCFF"
+    },
+    "type": "fill"
+  }]
+}
