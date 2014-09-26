@@ -17,6 +17,8 @@ app.use('*', function(req, res, next) {
 	res.header("Access-Control-Allow-Headers", "X-Requested-With");
 });
 
+app.use('/:ts/map', express.static(path.join(__dirname, '/static/map')));
+
 app.get('/ping', function(req, res){
 	res.send('tilehut says pong!');
 });
@@ -31,7 +33,7 @@ app.get('/:ts/:z/:x/:y.*', function(req, res) {
 	});
 });
 
-app.get('/:ts/meta', function(req, res) {
+app.get('/:ts/meta.json', function(req, res) {
 	initMBTiles(req, res, function(mbtiles) {
 		mbtiles.getInfo(function(err, info) {
 			if (err) handleError(err, req, res, 404, "cannot get metadata");
@@ -39,6 +41,7 @@ app.get('/:ts/meta', function(req, res) {
 		});
 	});
 });
+
 
 var initMBTiles = function(req, res, cb) {
 	var mbtilesfile = path.join(TILES_DIR, req.param('ts') + '.mbtiles');

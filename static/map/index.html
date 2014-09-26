@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tilehut Map Preview</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+	<style type="text/css">
+		body { margin: 0; padding: 0; }
+		#map { height: 400px; }
+	</style>
+</head>
+<body>
+	<div id="map"></div>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script>
+		$(document).ready(function() {
+			$.getJSON("../meta.json")
+			.done(function(meta) {
+			  	console.log(meta);
+				createMap(meta);
+			})
+			.fail(function() {
+		    	console.error("can't load tileset meta infos")
+		    });
+		});
+
+		function createMap(meta){
+			var map = L.map('map')
+				, center = meta.center.slice(0,2).reverse()
+				, tilesetUrl = window.location.href.split("map")[0]
+				, tilesLayer = L.tileLayer(tilesetUrl+'{z}/{x}/{y}.jpg', {
+					minZoom: meta.minzoom,
+					maxZoom: meta.maxzoom,
+				});
+			map.setView(center, meta.maxzoom);
+			map.addLayer(tilesLayer);
+
+			var updateMapSize = function(){
+				$("#map").height($(window).height())
+				map.invalidateSize();
+			};
+			updateMapSize();
+			$(window).resize(updateMapSize);
+		}
+	</script>
+</body>
+</html>
