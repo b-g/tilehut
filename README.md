@@ -8,13 +8,13 @@ mini-mbtiles-server
 
 Based on Tobin Bradley's nice [tutorial](https://www.youtube.com/watch?v=CwAQSKsSQhI) on [mbtiles-server](https://github.com/tobinbradley/mbtiles-server) with a few minor modifications.
 
-## Meta Data
+## Get meta-information for vector tiles
 
 ### Get meta information
 
-**Example:** `localhost:8080/berlin_vector/meta`
+**Example:** `localhost:8080/berlin_vector/meta.json`
     
-**Scheme:** `location_on_server/name_of_tileset/meta`
+**Scheme:** `location_on_server/name_of_tileset/meta.json`
     
 - "location_on_server" is the url to your server/localhost
 - "name_of_tileset" is the name of the .MBtiles file on your server
