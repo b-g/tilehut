@@ -2,7 +2,7 @@ _prefs:
   mapid: ''
   saveCenter: true
 _properties: {}
-attribution: dfg
+attribution: ''
 bounds: 
   - -180
   - -85.0511
@@ -10,15 +10,15 @@ bounds:
   - 85.0511
 center: 
   - -98.4375
-  - 30.4487
+  - 30.6001
   - 2
-description: ''
+description: just the entire world, dude
 format: "png8:m=h"
 interactivity_layer: ''
 layers: null
-maxzoom: 22
+maxzoom: 2
 minzoom: 0
-name: ''
+name: world countries
 source: "tmsource:///Volumes/HDD/stephan/Documents/tilehut/tutorial/countries-boundaries.tm2source"
 styles: 
   - style.mss
