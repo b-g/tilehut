@@ -5,9 +5,9 @@ var express = require("express")
 	, fs = require('fs')
 	;
 
-var PORT = process.env.OPENSHIFT_INTERNAL_PORT || process.env.OPENSHIFT_NODEJS_PORT  || 8000
-	, IPADDRESS = process.env.OPENSHIFT_INTERNAL_IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0'
-	, TILES_DIR = process.env.OPENSHIFT_DATA_DIR || __dirname
+var PORT = process.env.OPENSHIFT_NODEJS_PORT  || 8000
+	, IPADDRESS = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0'
+	, TILES_DIR = process.env.OPENSHIFT_DATA_DIR || path.join(__dirname, 'data')
 	;
 
 app.use('*', function(req, res, next) {
@@ -23,6 +23,16 @@ app.get('/ping', function(req, res){
 	res.send('tilehut says pong!');
 });
 
+app.get('/:ts/:z/:x/:y.*grid.json$', function(req, res) {
+	initMBTiles(req, res, function(mbtiles) {
+		mbtiles.getGrid(req.param('z'), req.param('x'), req.param('y'), function(err, tile, headers) {
+			if (err) handleError(err, req, res, 404, "tile utf8 grid error");
+			res.set(headers);
+			res.send(tile);
+		});
+	});
+});
+
 app.get('/:ts/:z/:x/:y.*', function(req, res) {
 	initMBTiles(req, res, function(mbtiles) {
 		mbtiles.getTile(req.param('z'), req.param('x'), req.param('y'), function(err, tile, headers) {
@@ -32,6 +42,7 @@ app.get('/:ts/:z/:x/:y.*', function(req, res) {
 		});
 	});
 });
+
 
 app.get('/:ts/meta.json', function(req, res) {
 	initMBTiles(req, res, function(mbtiles) {
