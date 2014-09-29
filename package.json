@@ -6,7 +6,9 @@
   "author": "mr. tilehut",
   "contributors": [
     "Benedikt Groß <b-g> (http://benedikt-gross.de/)",
-    "Joey Lee <joeyklee> (http://jk-lee.com/)"
+    "Joey Lee <joeyklee> (http://jk-lee.com/)",
+    "Stephan Bogner <bognerstephan> (http://stephanbogner.de/)",
+    "Stefan Landsbek"
   ],
   "dependencies": {
     "express": "4.9.1",
