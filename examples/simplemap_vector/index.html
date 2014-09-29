@@ -4,8 +4,6 @@
     <meta charset='utf-8'/>
     <title>Simple Vector Map in TileHut with Mapbox GL JS</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.3.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.3.0/mapbox-gl.css' rel='stylesheet' />
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -13,17 +11,18 @@
 </head>
 
 <body>
-<div id='map'></div>
+	<div id='map'></div>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.3.0/mapbox-gl.js'></script>
+    <!-- <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.3.0/mapbox-gl.css' rel='stylesheet' />-->
 	<script type="text/javascript">
-
-	var map = new mapboxgl.Map({
-	    container: 'map',
-	    center: [12, 1],
-	    zoom: 1,
-	    style: 'style.json', //stylesheet location
-	    hash: true
-	});
-	
+		// create a map in the "map" div, center the view at a given place, set initial zoom level, reference to style
+		var map = new mapboxgl.Map({
+		    container: 'map',
+		    center: [12, 1],
+		    zoom: 1,
+		    style: 'style.json', //stylesheet location
+		    hash: true	//adds zoom level and coordinates in the url (e.g. http://localhost:8080/#3.84/58.63/43.81)
+		});
 	</script>
 </body>
 </html>
