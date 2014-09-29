@@ -8,11 +8,11 @@ mini-mbtiles-server
 
 Based on Tobin Bradley's nice [tutorial](https://www.youtube.com/watch?v=CwAQSKsSQhI) on [mbtiles-server](https://github.com/tobinbradley/mbtiles-server) with a few minor modifications.
 
-## Get meta-information for vector tiles
+## Use Meta data for vector-tiles
 
 ### Get meta information
 
-**Example:** `localhost:8080/berlin_vector/meta.json`
+**Example:** `localhost:8080/tiles_vector/meta.json`
     
 **Scheme:** `location_on_server/name_of_tileset/meta.json`
     
@@ -29,28 +29,28 @@ MapBox equivalent is something like `http://a.tiles.mapbox.com/v4/mapbox.mapbox-
 Save the meta information as `meta.json` or something that suits you and add the path of your tileset to it.
 
     "tiles":[
-        "localhost:8080/name_of_tileset/{z}/{x}/{y}.vector.pbf"
+        "localhost:8080/tiles_vector/{z}/{x}/{y}.vector.pbf"
     ]
     
 Result is somthing like this:
 
     {
        "scheme":"tms",
-       "basename":"berlin_vector.mbtiles",
-       "id":"berlin_vector",
+       "basename":"tiles_vector.mbtiles",
+       "id":"tiles_vector",
        "filesize":2457600,
        "center":[
           0,
           0,
           1
        ],
-       "description":"berlin",
+       "description":"some tiles",
        "format":"pbf",
        "maxzoom":5,
        "minzoom":0,
-       "name":"berlin",
+       "name":"world",
        "tiles":[
-          "http://0.0.0.0:8080/berlin_vector/{z}/{x}/{y}.vector.pbf"
+          "http://0.0.0.0:8080/tiles_vector/{z}/{x}/{y}.vector.pbf"
        ],
        "vector_layers":[ 
            ... 
