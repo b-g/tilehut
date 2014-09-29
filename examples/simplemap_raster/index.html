@@ -4,7 +4,6 @@
     <meta charset='utf-8'/>
     <title>Simple Raster Map Example in TileHut with Leaflet</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -14,13 +13,13 @@
 <body>
 	<div id='map'></div>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 	<script type="text/javascript">
+		// create a map in the "map" div, set the view to a given place and zoom
+		var map = L.map('map').setView([52.475754, -0.851355], 6);
 
-	// create a map in the "map" div, set the view to a given place and zoom
-	var map = L.map('map').setView([52.475754, -0.851355], 6);
-
-	// add an OpenStreetMap tile layer
-	L.tileLayer('http://0.0.0.0:8000/tiles_raster/{z}/{x}/{y}.png').addTo(map);
+		// add an OpenStreetMap tile layer
+		L.tileLayer('http://0.0.0.0:8000/tiles_raster/{z}/{x}/{y}.png').addTo(map);
 	</script>
 </body>
 </html>
