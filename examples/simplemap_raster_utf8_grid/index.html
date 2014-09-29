@@ -14,17 +14,22 @@
 		html, body { width: 100%; height: 100%; margin: 0; }
 		#map { width: 100%; height: 100%; }
 
-		#hover{ position: absolute;
-				top: 10px;
-				width: 100%;
-				text-align: center;
+		#hover{ font-family: Sans-Serif;
+				position: absolute;
+				top: 18px;
+				left: 80px;
+				color: #2C2C2C;
+				background: white;
+				padding: 10px 25px;
+				border: 2px solid #8DC9D6;
+				border-radius: 4px;
 		}
 	</style>
 </head>
 
 <body>
 	<div id="map"></div>
-	<div id="hover">Hi</div>
+	<div id="hover">Hover over a country</div>
 	<script type="text/javascript">
 		// create a map in the "map" div, set the view to a given place and zoom
 		var map = L.map('map').setView([52.475754, -0.851355], 2);
@@ -32,15 +37,17 @@
 		// add an OpenStreetMap tile layer
 		L.tileLayer('http://0.0.0.0:8000/tiles_raster_utf8_grid/{z}/{x}/{y}.png').addTo(map);
 
+		// url to utf-8 grid
 		var utfGrid = new L.UtfGrid('http://0.0.0.0:8000/tiles_raster_utf8_grid/{z}/{x}/{y}.grid.json', {
 		    resolution: 2
 		});
 
+		// if hovering above a map
 		utfGrid.on('mouseover', function (e) {
 			if (e.data) {
-				document.getElementById('hover').innerHTML = 'hover: ' + e.data.admin;
+				document.getElementById('hover').innerHTML = e.data.admin;
 			} else {
-				document.getElementById('hover').innerHTML = 'hover: nothing';
+				document.getElementById('hover').innerHTML = 'Hover over a country';
 			}
 			//console.log('mouseover: ' + e.data);
 		});
