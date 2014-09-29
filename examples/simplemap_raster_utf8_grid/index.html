@@ -1,0 +1,49 @@
+<!-- original source from http://danzel.github.io/Leaflet.utfgrid/example/map.html -->
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Leaflet Grid Demo</title>
+
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script src="http://danzel.github.io/Leaflet.utfgrid/src/leaflet.utfgrid.js"></script>
+
+	<style type="text/css">
+		html, body { width: 100%; height: 100%; margin: 0; }
+		#map { width: 100%; height: 100%; }
+
+		#hover{ position: absolute;
+				top: 10px;
+				width: 100%;
+				text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="map"></div>
+	<div id="hover">Hi</div>
+	<script type="text/javascript">
+		// create a map in the "map" div, set the view to a given place and zoom
+		var map = L.map('map').setView([52.475754, -0.851355], 2);
+
+		// add an OpenStreetMap tile layer
+		L.tileLayer('http://0.0.0.0:8000/tiles_raster_utf8_grid/{z}/{x}/{y}.png').addTo(map);
+
+		var utfGrid = new L.UtfGrid('http://0.0.0.0:8000/tiles_raster_utf8_grid/{z}/{x}/{y}.grid.json', {
+		    resolution: 2
+		});
+
+		utfGrid.on('mouseover', function (e) {
+			if (e.data) {
+				document.getElementById('hover').innerHTML = 'hover: ' + e.data.admin;
+			} else {
+				document.getElementById('hover').innerHTML = 'hover: nothing';
+			}
+			//console.log('mouseover: ' + e.data);
+		});
+	</script>
+</body>
+</html>
