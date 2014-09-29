@@ -7,19 +7,39 @@
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
 	<style type="text/css">
 		body { margin: 0; padding: 0; }
-		#map { height: 400px; }
+		#map { position:absolute; top:0; bottom:0; width:100%; }
+		#hover{ font-family: Sans-Serif;
+				position: absolute;
+				top: 18px;
+				left: 80px;
+				color: #2C2C2C;
+				background: white;
+				padding: 10px 25px;
+				border: 2px solid #8DC9D6;
+				border-radius: 4px;
+				display: none;
+		}
 	</style>
 </head>
 <body>
 	<div id="map"></div>
+	<div id="hover">Hover over a country</div>
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script src="http://danzel.github.io/Leaflet.utfgrid/src/leaflet.utfgrid.js"></script>
 	<script>
 		$(document).ready(function() {
 			$.getJSON("../meta.json")
 			.done(function(meta) {
-			  	// console.log(meta);
-				createMap(meta);
+				if( jQuery.isEmptyObject( meta.vector_layers ) ){
+					if( jQuery.isEmptyObject( meta.template ) ){
+						createMap(meta);
+					}else{
+						createMapUtf8(meta)
+					}
+				}else{
+					createVectorMap(meta);
+				}
 			})
 			.fail(function() {
 		    	console.error("can't load tileset meta infos")
@@ -36,13 +56,40 @@
 				});
 			map.setView(center, meta.maxzoom);
 			map.addLayer(tilesLayer);
+		}
 
-			var updateMapSize = function(){
-				$("#map").height($(window).height())
-				map.invalidateSize();
-			};
-			updateMapSize();
-			$(window).resize(updateMapSize);
+
+		function createMapUtf8(meta){
+			$('#hover').show();
+			//add tiles and grid to map, also set view
+			var map = L.map('map')
+				, center = meta.center.slice(0,2).reverse()
+				, tilesetUrl = window.location.href.split("map")[0]
+				, tilesLayer = L.tileLayer(tilesetUrl+'{z}/{x}/{y}.jpg', {
+					minZoom: meta.minzoom,
+					maxZoom: meta.maxzoom,
+				});
+
+			var utfGrid = new L.UtfGrid(tilesetUrl+'{z}/{x}/{y}.grid.json', {
+				useJsonP: false
+			});
+
+			map.setView(center, meta.maxzoom);
+			map.addLayer(tilesLayer);
+			map.addLayer(utfGrid);
+
+						// if hovering above a map
+			utfGrid.on('mouseover', function (e) {
+				if (e.data) {
+					document.getElementById('hover').innerHTML = e.data.ne_10m_adm;
+				} else {
+					document.getElementById('hover').innerHTML = 'Hover over a country';
+				}
+			});
+		}
+
+		function createVectorMap(meta){
+
 		}
 	</script>
 </body>
