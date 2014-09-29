@@ -31,26 +31,28 @@
 	<div id="map"></div>
 	<div id="hover">Hover over a country</div>
 	<script type="text/javascript">
-		// create a map in the "map" div, set the view to a given place and zoom
-		var map = L.map('map').setView([52.475754, -0.851355], 2);
-
 		// add an OpenStreetMap tile layer
-		L.tileLayer('http://0.0.0.0:8000/tiles_raster_utf8_grid/{z}/{x}/{y}.png').addTo(map);
+		var tiles = L.tileLayer('http://0.0.0.0:8000/tiles_raster_utf8_grid/{z}/{x}/{y}.png');
 
 		// url to utf-8 grid
 		var utfGrid = new L.UtfGrid('http://0.0.0.0:8000/tiles_raster_utf8_grid/{z}/{x}/{y}.grid.json', {
-		    resolution: 2
+		    useJsonP: false
 		});
 
 		// if hovering above a map
 		utfGrid.on('mouseover', function (e) {
 			if (e.data) {
-				document.getElementById('hover').innerHTML = e.data.admin;
+				document.getElementById('hover').innerHTML = e.data.ne_10m_adm;
 			} else {
 				document.getElementById('hover').innerHTML = 'Hover over a country';
 			}
-			//console.log('mouseover: ' + e.data);
 		});
+
+		//add tiles and grid to map, also set view
+		var map = L.map('map')
+				.setView([52.475754, -0.851355], 2)
+				.addLayer(tiles)
+				.addLayer(utfGrid);
 	</script>
 </body>
 </html>
