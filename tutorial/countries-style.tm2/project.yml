@@ -1,0 +1,25 @@
+_prefs: 
+  mapid: ''
+  saveCenter: true
+_properties: {}
+attribution: dfg
+bounds: 
+  - -180
+  - -85.0511
+  - 180
+  - 85.0511
+center: 
+  - -98.4375
+  - 30.4487
+  - 2
+description: ''
+format: "png8:m=h"
+interactivity_layer: ''
+layers: null
+maxzoom: 22
+minzoom: 0
+name: ''
+source: "tmsource:///Volumes/HDD/stephan/Documents/tilehut/tutorial/countries-boundaries.tm2source"
+styles: 
+  - style.mss
+template: ''
