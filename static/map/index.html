@@ -28,29 +28,27 @@
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 	<script src="http://danzel.github.io/Leaflet.utfgrid/src/leaflet.utfgrid.js"></script>
 	<script>
-		$(document).ready(function() {
-			$.getJSON("../meta.json")
-			.done(function(meta) {
-				if( jQuery.isEmptyObject( meta.vector_layers ) ){
-					if( jQuery.isEmptyObject( meta.template ) ){
-						createMap(meta);
-					}else{
-						createMapUtf8(meta)
-					}
-				}else{
+		function createMapFromType(type,meta){
+			switch (type){
+				case 'raster':
+					createRasterMap(meta);
+				break;
+				case 'utf8':
+					createUtf8Map(meta);
+				break;
+				case 'vector':
 					createVectorMap(meta);
-				}
-			})
-			.fail(function() {
-		    	console.error("can't load tileset meta infos")
-		    });
-		});
+				break;
+				default:
+					alert('type of map could not be detected – check your meta.json file');
+			}
+		}
 
-		function createMap(meta){
+		function createRasterMap(meta){
 			var map = L.map('map')
 				, center = meta.center.slice(0,2).reverse()
 				, tilesetUrl = window.location.href.split("map")[0]
-				, tilesLayer = L.tileLayer(tilesetUrl+'{z}/{x}/{y}.jpg', {
+				, tilesLayer = L.tileLayer(tilesetUrl+'{z}/{x}/{y}.png', {
 					minZoom: meta.minzoom,
 					maxZoom: meta.maxzoom,
 				});
@@ -59,13 +57,12 @@
 		}
 
 
-		function createMapUtf8(meta){
+		function createUtf8Map(meta){
 			$('#hover').show();
-			//add tiles and grid to map, also set view
 			var map = L.map('map')
 				, center = meta.center.slice(0,2).reverse()
 				, tilesetUrl = window.location.href.split("map")[0]
-				, tilesLayer = L.tileLayer(tilesetUrl+'{z}/{x}/{y}.jpg', {
+				, tilesLayer = L.tileLayer(tilesetUrl+'{z}/{x}/{y}.png', {
 					minZoom: meta.minzoom,
 					maxZoom: meta.maxzoom,
 				});
@@ -78,19 +75,46 @@
 			map.addLayer(tilesLayer);
 			map.addLayer(utfGrid);
 
-						// if hovering above a map
+			// if hovering above the map
 			utfGrid.on('mouseover', function (e) {
 				if (e.data) {
-					document.getElementById('hover').innerHTML = e.data.ne_10m_adm;
+					document.getElementById('hover').innerHTML = e.data;
 				} else {
-					document.getElementById('hover').innerHTML = 'Hover over a country';
+					document.getElementById('hover').innerHTML = 'Hover over a feature';
 				}
 			});
 		}
 
 		function createVectorMap(meta){
-
 		}
+
+		function getMapType(meta){
+			if( jQuery.isEmptyObject( meta.vector_layers ) ){
+				if( jQuery.isEmptyObject( meta.template )) {
+					console.log('detect map is raster');
+					return 'raster'
+				}else{ 
+					console.log('detect map is raster utf8');
+					return 'utf8'
+				}
+			}else{
+				console.log('detect map is vector');
+				return 'vector'
+			}
+			console.log('map type coul not be detected');
+			return 'meta file has wrong structure'
+		}
+
+		$(document).ready(function() {
+			$.getJSON("../meta.json")
+			.done(function(meta) {
+				var type = getMapType(meta);
+				createMapFromType( type, meta );
+			})
+			.fail(function() {
+		    	console.error("can't load tileset meta infos")
+		    });
+		});
 	</script>
 </body>
 </html>
