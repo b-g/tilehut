@@ -57,7 +57,7 @@ app.get('/:ts/meta.json', function(req, res) {
 var initMBTiles = function(req, res, cb) {
 	var mbtilesfile = path.join(TILES_DIR, req.param('ts') + '.mbtiles');
 	fs.exists(mbtilesfile, function (exists) {
-		if (!exists) return handleError(null, req, res, 404, "cannot initialize MBTiles object");
+		if (!exists) return handleError(null, req, res, 404, "cannot find MBTiles file on server: "+mbtilesfile);
 		new MBTiles(mbtilesfile, function(err, mbtiles) {
 			if (err) return handleError(err, req, res, 500, "cannot initialize MBTiles object");
 			cb(mbtiles);
