@@ -41,8 +41,6 @@
 	<script src="http://danzel.github.io/Leaflet.utfgrid/src/leaflet.utfgrid.js"></script>
 	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.3.0/mapbox-gl.js'></script>
 	<script>
-		
-
 		function init(meta){
 			var map;
 			var mapDiv = 'map';
@@ -55,7 +53,6 @@
 				maxZoom: tilesetMaxZoom,
 			});
 			var tilesetType = getMapType(meta);
-
 			var mapStyle = {
 				  "version": 5,
 				  "sources": {
@@ -85,7 +82,6 @@
 					  }
 				  ]
 			};
-
 			createMapFromType( tilesetType, mapDiv, tilesetCenter, tilesetUrl, tilesLayer, mapStyle, tilesetMaxZoom);
 		}
 
@@ -123,15 +119,14 @@
 			// if hovering above the map
 			utfGrid.on('mouseover', function (e) {
 				var obj = e.data;
-				if ( obj ) {
-
-					var html = "<dl>";
+				if (obj) {
+					var tableContent = "<dl>";
 					Object.getOwnPropertyNames(obj).forEach(function(val, idx, array) {
-						html  += "<dt>\"" + val + "\":</dt><dd>\"" + obj[val] + "\"</dd>";
+						tableContent  += "<dt>\"" + val + "\":</dt><dd>\"" + obj[val] + "\"</dd>";
 					});
-					html += "</dl>"
+					tableContent += "</dl>"
 
-					$('#inspector').html( html );
+					$('#inspector').html( tableContent );
 				} else {
 					$('#inspector').html( 'Hover over a feature' );
 				}
@@ -152,18 +147,14 @@
 		function getMapType(meta){
 			if( jQuery.isEmptyObject( meta.vector_layers ) ){
 				if( jQuery.isEmptyObject( meta.template )) {
-					console.log('detected map is raster');
 					return 'raster';
 				}else{ 
-					console.log('detected map is raster utf8');
 					return 'raster-utf8';
 				}
 			}else{
-				console.log('detected map is vector');
 				return 'vector';
 			}
-			console.log('map type could not be detected');
-			return 'meta file has wrong structure';
+			alert('map type could not be detected');
 		}
 
 		$(document).ready(function() {
@@ -173,7 +164,7 @@
 			})
 			.fail(function() {
 		    	console.error("can't load tileset meta infos")
-		    });
+		  });
 		});
 	</script>
 </body>
