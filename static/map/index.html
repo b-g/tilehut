@@ -9,24 +9,45 @@
 		body { margin: 0; padding: 0; }
 		#map { position:absolute; top:0; bottom:0; width:100%; }
 		#hover{ font-family: Sans-Serif;
+				width: 300px;
 				position: absolute;
-				top: 18px;
-				left: 80px;
+				top: 40px;
+				right: 40px;
 				color: #2C2C2C;
 				background: white;
-				padding: 10px 25px;
-				border: 2px solid #8DC9D6;
-				border-radius: 4px;
-				display: none;
+				border: 2px solid #464646;
 		}
+
+		dl{
+			display: inline;
+		}
+
+		dt{
+			clear: left;
+		}
+
+		dd{
+			clear: right;
+		}
+
+		dd, dt{
+			width: 45%;
+			float: left;
+			margin: 0;
+			padding: 15px 0 12px 5%;
+			border-bottom: 1px solid rgb(219, 219, 219);
+		}
+
 	</style>
 </head>
 <body>
 	<div id="map"></div>
-	<div id="hover">Hover over a country</div>
+	<div id="hover">Hover over a feature</div>
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 	<script src="http://danzel.github.io/Leaflet.utfgrid/src/leaflet.utfgrid.js"></script>
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.3.0/mapbox-gl.js'></script>
+
 	<script>
 		function createMapFromType(type,meta){
 			switch (type){
@@ -78,7 +99,14 @@
 			// if hovering above the map
 			utfGrid.on('mouseover', function (e) {
 				if (e.data) {
-					document.getElementById('hover').innerHTML = e.data;
+					var html = "<dl>";
+					var obj = e.data;
+					Object.getOwnPropertyNames(obj).forEach(function(val, idx, array) {
+						html  += "<dt>\"" + val + "\":</dt><dd>\"" + obj[val] + "\"</dd>";
+					});
+					html += "</dl>"
+
+					document.getElementById('hover').innerHTML = html;
 				} else {
 					document.getElementById('hover').innerHTML = 'Hover over a feature';
 				}
@@ -86,22 +114,59 @@
 		}
 
 		function createVectorMap(meta){
+			var tilesetUrl = window.location.href.split("map")[0];
+			var style = {
+			  "version": 5,
+			  "sources": {
+			    "mapbox": {
+			      "type": "vector",
+			      "url": "" + tilesetUrl + "meta.json?vectortileflag=true",
+			      "maxzoom": 15
+			    }
+			  },
+			  "layers": [
+			  {
+			    "id": "background",
+			    "style": {
+			      "background-color": "#C5D1ED"
+			    },
+			    "type": "background"
+			  },
+			  {
+			    "source": "mapbox",
+			    "source-layer": "admin-countries",
+			    "style": {
+			      "fill-color": "#EDF0FD",
+			      "fill-outline-color": "#FCFCFF"
+			    },
+			    "type": "fill"
+			  }]
+			};
+
+			// create a map in the "map" div, center the view at a given place, set initial zoom level, reference to style
+			var map = new mapboxgl.Map({
+			    container: 'map',
+			    center: [12, 1],
+			    zoom: 1,
+			    style: style, //stylesheet location
+			    hash: true	//adds zoom level and coordinates in the url (e.g. http://localhost:8080/#3.84/58.63/43.81)
+			});
 		}
 
 		function getMapType(meta){
 			if( jQuery.isEmptyObject( meta.vector_layers ) ){
 				if( jQuery.isEmptyObject( meta.template )) {
-					console.log('detect map is raster');
+					console.log('detected map is raster');
 					return 'raster'
 				}else{ 
-					console.log('detect map is raster utf8');
+					console.log('detected map is raster utf8');
 					return 'utf8'
 				}
 			}else{
-				console.log('detect map is vector');
+				console.log('detected map is vector');
 				return 'vector'
 			}
-			console.log('map type coul not be detected');
+			console.log('map type could not be detected');
 			return 'meta file has wrong structure'
 		}
 
