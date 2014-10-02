@@ -46,10 +46,17 @@ app.get('/:ts/:z/:x/:y.*', function(req, res) {
 });
 
 
+
 app.get('/:ts/meta.json', function(req, res) {
 	initMBTiles(req, res, function(mbtiles) {
 		mbtiles.getInfo(function(err, info) {
 			if (err) handleError(err, req, res, 404, "cannot get metadata");
+
+			// add '?vectortileflag=true' to url to instert path to tileset into meta.json
+			if( req.query.vectortileflag === "true"){
+				info.tiles = [req.protocol + '://' + req.get('host') + "/" + req.param('ts') + "/{z}/{x}/{y}.vector.pbf"];
+			}
+
 			res.send(info);
 		});
 	});
