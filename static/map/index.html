@@ -16,6 +16,7 @@
 				color: #2C2C2C;
 				background: white;
 				border: 2px solid #464646;
+				display: none;
 		}
 
 		dl{
@@ -51,69 +52,26 @@
 	<script>
 		var map;
 
-		function createMapFromType(type,meta){
-			switch (type){
-				case 'raster':
-					createRasterMap(meta);
-				break;
-				case 'raster-utf8':
-					createRasterMap(meta);
-					addUTF8Grid();
-				break;
-				case 'vector':
-					createVectorMap(meta);
-				break;
-				default:
-					alert('type of map could not be detected – check your meta.json file');
-			}
-		}
-
-		function createRasterMap(meta){
-			map = L.map('map')
-				, center = meta.center.slice(0,2).reverse()
-				, tilesetUrl = window.location.href.split("map")[0]
-				, tilesLayer = L.tileLayer(tilesetUrl+'{z}/{x}/{y}.png', {
-					minZoom: meta.minzoom,
-					maxZoom: meta.maxzoom,
-				});
-			map.setView(center, meta.maxzoom);
-			map.addLayer(tilesLayer);
-		}
-
-		function addUTF8Grid(){
-			$('#hover').show();
+		function init(meta){
+			var mapDiv = 'map';
 			var tilesetUrl = window.location.href.split("map")[0];
-			var utfGrid = new L.UtfGrid(tilesetUrl+'{z}/{x}/{y}.grid.json', {
-				useJsonP: false //because .grid.json is a json file, not jsonp
+			var tilesetCenter = meta.center.slice(0,2).reverse()
+			var tilesetMaxZoom = meta.maxzoom;
+			var tilesetMinZoom = meta.minzoom;
+			var tilesLayer = L.tileLayer(tilesetUrl+'{z}/{x}/{y}.png', {
+				minZoom: tilesetMinZoom,
+				maxZoom: tilesetMaxZoom,
 			});
-			map.addLayer(utfGrid);
+			var tilesetType = getMapType(meta);
 
-			// if hovering above the map
-			utfGrid.on('mouseover', function (e) {
-				if (e.data) {
-					var html = "<dl>";
-					var obj = e.data;
-					Object.getOwnPropertyNames(obj).forEach(function(val, idx, array) {
-						html  += "<dt>\"" + val + "\":</dt><dd>\"" + obj[val] + "\"</dd>";
-					});
-					html += "</dl>"
-
-					document.getElementById('hover').innerHTML = html;
-				} else {
-					document.getElementById('hover').innerHTML = 'Hover over a feature';
-				}
-			});
-		}
-
-		function createVectorMap(meta){
-			var tilesetUrl = window.location.href.split("map")[0];
-			var style = {
+			var mapStyle = {
 				  "version": 5,
 				  "sources": {
 				    "mapbox": {
 				      "type": "vector",
 				      "url": "" + tilesetUrl + "meta.json?vectortileflag=true",
-				      "maxzoom": 15
+				      "minzoom": tilesetMinZoom,
+				      "maxzoom": tilesetMaxZoom
 				    }
 				  },
 				  "layers": [
@@ -136,13 +94,65 @@
 				  ]
 			};
 
+			createMapFromType( tilesetType, mapDiv, tilesetCenter, tilesetUrl, tilesLayer, mapStyle, tilesetMaxZoom);
+		}
+
+		function createMapFromType(tilesetType, mapDiv, tilesetCenter, tilesetUrl, tilesLayer, mapStyle, tilesetMaxZoom){
+			switch (tilesetType){
+				case 'raster':
+					createRasterMap(mapDiv, tilesetCenter, tilesLayer, tilesetMaxZoom);
+				break;
+				case 'raster-utf8':
+					createRasterMap(mapDiv, tilesetCenter, tilesLayer, tilesetMaxZoom);
+					addUTF8Grid(tilesetUrl);
+				break;
+				case 'vector':
+					createVectorMap( mapDiv, tilesetCenter, mapStyle, tilesetMaxZoom);
+				break;
+				default:
+					alert('type of map could not be detected – check your meta.json file');
+			}
+		}
+
+		function createRasterMap(mapDiv, tilesetCenter, tilesLayer, initialZoom){
+			map = L.map( mapDiv );
+			map.setView(tilesetCenter, initialZoom);
+			map.addLayer(tilesLayer);
+		}
+
+		function addUTF8Grid(tilesetUrl){
+			$('#hover').show();
+
+			var utfGrid = new L.UtfGrid(tilesetUrl+'{z}/{x}/{y}.grid.json', {
+				useJsonP: false //because .grid.json is a json file, not jsonp
+			});
+			map.addLayer(utfGrid);
+
+			// if hovering above the map
+			utfGrid.on('mouseover', function (e) {
+				var obj = e.data;
+				if ( obj ) {
+
+					var html = "<dl>";
+					Object.getOwnPropertyNames(obj).forEach(function(val, idx, array) {
+						html  += "<dt>\"" + val + "\":</dt><dd>\"" + obj[val] + "\"</dd>";
+					});
+					html += "</dl>"
+
+					$('#hover').html( html );
+				} else {
+					$('#hover').html( 'Hover over a feature' );
+				}
+			});
+		}
+
+		function createVectorMap(mapDiv, tilesetCenter, mapStyle, initialZoom){
 			// create a map in the "map" div, center the view at a given place, set initial zoom level, reference to style
-			var center = meta.center.slice(0,2).reverse();
 			map = new mapboxgl.Map({
-			    container: 'map',
-			    center: center,
-			    zoom: meta.maxzoom,
-			    style: style, //stylesheet location
+			    container: mapDiv,
+			    center: tilesetCenter,
+			    zoom: initialZoom,
+			    style: mapStyle, //stylesheet location
 			    hash: true	//adds zoom level and coordinates in the url (e.g. http://localhost:8080/#3.84/58.63/43.81)
 			});
 		}
@@ -151,24 +161,23 @@
 			if( jQuery.isEmptyObject( meta.vector_layers ) ){
 				if( jQuery.isEmptyObject( meta.template )) {
 					console.log('detected map is raster');
-					return 'raster'
+					return 'raster';
 				}else{ 
 					console.log('detected map is raster utf8');
-					return 'raster-utf8'
+					return 'raster-utf8';
 				}
 			}else{
 				console.log('detected map is vector');
-				return 'vector'
+				return 'vector';
 			}
 			console.log('map type could not be detected');
-			return 'meta file has wrong structure'
+			return 'meta file has wrong structure';
 		}
 
 		$(document).ready(function() {
 			$.getJSON("../meta.json")
 			.done(function(meta) {
-				var type = getMapType(meta);
-				createMapFromType( type, meta );
+				init(meta);
 			})
 			.fail(function() {
 		    	console.error("can't load tileset meta infos")
