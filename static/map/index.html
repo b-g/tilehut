@@ -8,7 +8,7 @@
 	<style type="text/css">
 		body { margin: 0; padding: 0; }
 		#map { position:absolute; top:0; bottom:0; width:100%; }
-		#hover{ font-family: Sans-Serif;
+		#inspector{ font-family: Sans-Serif;
 				width: 300px;
 				position: absolute;
 				top: 40px;
@@ -19,18 +19,9 @@
 				display: none;
 		}
 
-		dl{
-			display: inline;
-		}
-
-		dt{
-			clear: left;
-		}
-
-		dd{
-			clear: right;
-		}
-
+		dl{ display: inline; }
+		dt{ clear: left; }
+		dd{ clear: right; }
 		dd, dt{
 			width: 45%;
 			float: left;
@@ -43,16 +34,17 @@
 </head>
 <body>
 	<div id="map"></div>
-	<div id="hover">Hover over a feature</div>
+	<div id="inspector">Hover over a feature</div>
+
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 	<script src="http://danzel.github.io/Leaflet.utfgrid/src/leaflet.utfgrid.js"></script>
 	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.3.0/mapbox-gl.js'></script>
-
 	<script>
-		var map;
+		
 
 		function init(meta){
+			var map;
 			var mapDiv = 'map';
 			var tilesetUrl = window.location.href.split("map")[0];
 			var tilesetCenter = meta.center.slice(0,2).reverse()
@@ -121,7 +113,7 @@
 		}
 
 		function addUTF8Grid(tilesetUrl){
-			$('#hover').show();
+			$('#inspector').show();
 
 			var utfGrid = new L.UtfGrid(tilesetUrl+'{z}/{x}/{y}.grid.json', {
 				useJsonP: false //because .grid.json is a json file, not jsonp
@@ -139,9 +131,9 @@
 					});
 					html += "</dl>"
 
-					$('#hover').html( html );
+					$('#inspector').html( html );
 				} else {
-					$('#hover').html( 'Hover over a feature' );
+					$('#inspector').html( 'Hover over a feature' );
 				}
 			});
 		}
