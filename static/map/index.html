@@ -49,13 +49,16 @@
 	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.3.0/mapbox-gl.js'></script>
 
 	<script>
+		var map;
+
 		function createMapFromType(type,meta){
 			switch (type){
 				case 'raster':
 					createRasterMap(meta);
 				break;
-				case 'utf8':
-					createUtf8Map(meta);
+				case 'raster-utf8':
+					createRasterMap(meta);
+					addUTF8Grid();
 				break;
 				case 'vector':
 					createVectorMap(meta);
@@ -66,7 +69,7 @@
 		}
 
 		function createRasterMap(meta){
-			var map = L.map('map')
+			map = L.map('map')
 				, center = meta.center.slice(0,2).reverse()
 				, tilesetUrl = window.location.href.split("map")[0]
 				, tilesLayer = L.tileLayer(tilesetUrl+'{z}/{x}/{y}.png', {
@@ -77,23 +80,12 @@
 			map.addLayer(tilesLayer);
 		}
 
-
-		function createUtf8Map(meta){
+		function addUTF8Grid(){
 			$('#hover').show();
-			var map = L.map('map')
-				, center = meta.center.slice(0,2).reverse()
-				, tilesetUrl = window.location.href.split("map")[0]
-				, tilesLayer = L.tileLayer(tilesetUrl+'{z}/{x}/{y}.png', {
-					minZoom: meta.minzoom,
-					maxZoom: meta.maxzoom,
-				});
-
+			var tilesetUrl = window.location.href.split("map")[0];
 			var utfGrid = new L.UtfGrid(tilesetUrl+'{z}/{x}/{y}.grid.json', {
-				useJsonP: false
+				useJsonP: false //because .grid.json is a json file, not jsonp
 			});
-
-			map.setView(center, meta.maxzoom);
-			map.addLayer(tilesLayer);
 			map.addLayer(utfGrid);
 
 			// if hovering above the map
@@ -116,38 +108,40 @@
 		function createVectorMap(meta){
 			var tilesetUrl = window.location.href.split("map")[0];
 			var style = {
-			  "version": 5,
-			  "sources": {
-			    "mapbox": {
-			      "type": "vector",
-			      "url": "" + tilesetUrl + "meta.json?vectortileflag=true",
-			      "maxzoom": 15
-			    }
-			  },
-			  "layers": [
-			  {
-			    "id": "background",
-			    "style": {
-			      "background-color": "#C5D1ED"
-			    },
-			    "type": "background"
-			  },
-			  {
-			    "source": "mapbox",
-			    "source-layer": "admin-countries",
-			    "style": {
-			      "fill-color": "#EDF0FD",
-			      "fill-outline-color": "#FCFCFF"
-			    },
-			    "type": "fill"
-			  }]
+				  "version": 5,
+				  "sources": {
+				    "mapbox": {
+				      "type": "vector",
+				      "url": "" + tilesetUrl + "meta.json?vectortileflag=true",
+				      "maxzoom": 15
+				    }
+				  },
+				  "layers": [
+					  {
+					    "id": "background",
+					    "style": {
+					      "background-color": "#C5D1ED"
+					    },
+					    "type": "background"
+					  },
+					  {
+					    "source": "mapbox",
+					    "source-layer": "admin-countries",
+					    "style": {
+					      "fill-color": "#EDF0FD",
+					      "fill-outline-color": "#FCFCFF"
+					    },
+					    "type": "fill"
+					  }
+				  ]
 			};
 
 			// create a map in the "map" div, center the view at a given place, set initial zoom level, reference to style
-			var map = new mapboxgl.Map({
+			var center = meta.center.slice(0,2).reverse();
+			map = new mapboxgl.Map({
 			    container: 'map',
-			    center: [12, 1],
-			    zoom: 1,
+			    center: center,
+			    zoom: meta.maxzoom,
 			    style: style, //stylesheet location
 			    hash: true	//adds zoom level and coordinates in the url (e.g. http://localhost:8080/#3.84/58.63/43.81)
 			});
@@ -160,7 +154,7 @@
 					return 'raster'
 				}else{ 
 					console.log('detected map is raster utf8');
-					return 'utf8'
+					return 'raster-utf8'
 				}
 			}else{
 				console.log('detected map is vector');
