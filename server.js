@@ -10,6 +10,8 @@ var PORT = process.env.OPENSHIFT_NODEJS_PORT  || 8000
 	, TILES_DIR = process.env.OPENSHIFT_DATA_DIR || path.join(__dirname, 'data')
 	;
 
+// TODO Cache-Control: setting
+
 app.use('*', function(req, res, next) {
 	next();
 	// set CORS response header AFTER the get functions ...
