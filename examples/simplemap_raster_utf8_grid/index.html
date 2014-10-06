@@ -32,10 +32,10 @@
 	<div id="hover">Hover over a country</div>
 	<script type="text/javascript">
 		// add an OpenStreetMap tile layer
-		var tiles = L.tileLayer('http://0.0.0.0:8000/tiles_raster_utf8_grid/{z}/{x}/{y}.png');
+		var tiles = L.tileLayer('http://0.0.0.0:8000/tiles-world-utfgrid/{z}/{x}/{y}.png');
 
 		// url to utf-8 grid
-		var utfGrid = new L.UtfGrid('http://0.0.0.0:8000/tiles_raster_utf8_grid/{z}/{x}/{y}.grid.json', {
+		var utfGrid = new L.UtfGrid('http://0.0.0.0:8000/tiles-world-utfgrid/{z}/{x}/{y}.grid.json', {
 		    useJsonP: false
 		});
 

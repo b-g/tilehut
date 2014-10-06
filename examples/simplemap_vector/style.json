@@ -3,7 +3,7 @@
   "sources": {
     "mapbox": {
       "type": "vector",
-      "url": "http://0.0.0.0:8000/tiles_vector/meta.json?vectortileflag=true",
+      "url": "http://0.0.0.0:8000/tiles-world-vector/meta.json?vectortileflag=true",
       "maxzoom": 15
     }
   },

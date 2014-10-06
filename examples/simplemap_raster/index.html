@@ -16,10 +16,10 @@
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 	<script type="text/javascript">
 		// create a map in the "map" div, set the view to a given place and zoom
-		var map = L.map('map').setView([52.475754, -0.851355], 6);
+		var map = L.map('map').setView([0, 0], 3);
 
 		// add an OpenStreetMap tile layer
-		L.tileLayer('http://0.0.0.0:8000/tiles_raster/{z}/{x}/{y}.png').addTo(map);
+		L.tileLayer('http://0.0.0.0:8000/tiles-world-simple/{z}/{x}/{y}.png').addTo(map);
 	</script>
 </body>
 </html>
