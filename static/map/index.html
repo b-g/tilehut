@@ -196,9 +196,10 @@
 
 		function getTilesetType(meta){
 			if( jQuery.isEmptyObject( meta.vector_layers ) ){
-				if( jQuery.isEmptyObject( meta.template )) {
+				if( jQuery.isEmptyObject( meta.template )) { /* might cause trouble with maps not exported with tilemill*/
 					return 'raster';
 				}else{ 
+					//adds the mustache template from meta.json
 					tilemillMustache = meta.template;
 					return 'raster-utf8';
 				}
