@@ -5,16 +5,19 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
 	<style type="text/css">
 		body { margin: 0; padding: 0; }
 		#map { position:absolute; top:0; bottom:0; width:100%; }
 		#inspector{ 
-			font-family: Sans-Serif;
-			width: 400px;
+			font-family: 'Lato', sans-serif;
+			font-size: 0.8em;
+			letter-spacing: 0.04em;
+			width: 300px;
 			position: absolute;
 			top: 40px;
 			right: 40px;
-			color: #2C2C2C;
+			color: #F3F3F3;
 			display: none;
 
 		}
@@ -25,8 +28,8 @@
 		}
 
 		table, #inspectorMustache{
-			background: white;
-			border: 2px solid #464646;
+			background: rgb(27, 27, 27);
+			border: 2px solid #FFFFFF;
 
 			-webkit-box-shadow: 0 2px 10px rgba(0,0,0,0.23);
 			-moz-box-shadow: 0 2px 10px rgba(0,0,0,0.23);
@@ -34,8 +37,11 @@
 		}
 
 		#inspectorMustache{
-			margin-top: 20px;
-			padding: 15px;
+			padding: 1em;
+		}
+
+		#inspectorTable{
+			margin-top: 1em;
 		}
 
 		tr{
@@ -54,7 +60,7 @@
 
 		td{
 			margin: 0;
-			padding: 9px 5% 7px 5%;
+			padding: 0.5em 5% 0.6em 5%;
 			border-bottom: 1px solid rgb(219, 219, 219);
 		}
 
@@ -63,14 +69,14 @@
 <body>
 	<div id="map"></div>
 	<div id="inspector">
+		<div id="inspectorMustache">
+		</div>
+
 		<table id="inspectorTable">
 			<tr>
 				<td>Hover over a feature</td>
 			</tr>
 		</table>
-		<div id="inspectorMustache">
-			
-		</div>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -80,8 +86,6 @@
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.js"></script>
 	<script>
 		function init(meta){
-			var tilemillMustache;
-
 			var map;
 			var mapDiv = 'map';
 			var tilesetUrl = window.location.href.split("map")[0];
@@ -93,6 +97,7 @@
 				maxZoom: tilesetMaxZoom,
 			});
 			var tilesetType = getTilesetType(meta);
+			var tilesetTemplate = meta.template;
 			var mapStyle = {
 				  "version": 5,
 				  "sources": {
@@ -175,10 +180,8 @@
 
 					console.log(obj);
 
-					mustacheOutput = Mustache.render( tilemillMustache , objClone);
+					mustacheOutput = Mustache.render( tilesetTemplate , objClone);
 					$('#inspectorMustache').html( mustacheOutput );
-
-					
 				}
 			});
 		}
@@ -196,14 +199,14 @@
 
 		function getTilesetType(meta){
 			if( jQuery.isEmptyObject( meta.vector_layers ) ){
+				//Type is Raster
 				if( jQuery.isEmptyObject( meta.template )) { /* might cause trouble with maps not exported with tilemill*/
 					return 'raster';
 				}else{ 
-					//adds the mustache template from meta.json
-					tilemillMustache = meta.template;
 					return 'raster-utf8';
 				}
 			}else{
+				//Type is Vector
 				return 'vector';
 			}
 			alert('map type could not be detected');
