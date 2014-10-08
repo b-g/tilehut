@@ -1,7 +1,7 @@
 # Getting Started with Tiles
 ## 1. Create Tileset (in Tilemill)
 
-### Step 0:
+### Step 0: Get TileMill
 Download and install [TileMill](https://www.mapbox.com/tilemill/) if you haven't done so already. If this is new to you: TileMill is an design studio by the amazing team at [Mapbox](mapbox.com) to create beautiful maps.
 
 And If you haven't heard of Mapbox – check it out their [website](mapbox.com) and [blog](https://www.mapbox.com/blog/).
