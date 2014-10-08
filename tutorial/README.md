@@ -9,7 +9,7 @@ Getting Started with Tiles
   - [Step 2: Create a new Project](#step-2-create-a-new-project)
   - [Step 3: Import Map Data](#step-3-import-map-data)
   - [Step 4: Style your Map](#step-4-style-your-map)
-  - [(Optional Step 5: Add UTF-8 Grid )](#optional-step-5-add-utf-8-grid-)
+  - [(Optional Step 5: Add UTF-8 Grid)](#optional-step-5-add-utf-8-grid-)
   - [Step 6: Export Map](#step-6-export-map)
 - [2. Run Tile Server](#2-run-tile-server)
   - [Option 1: Via Localhost](#option-1-via-localhost)
@@ -77,7 +77,7 @@ Mapbox provides a [great tutorial](https://www.mapbox.com/tilemill/docs/crashcou
     
 ![Step 8](readme-assets/tilemill_step_07_advancedStyle.png)
 
-### (Optional Step 5: Add UTF-8 Grid )
+### (Optional Step 5: Add UTF-8 Grid)
 
 **Note:** A UTF-8 grid adds the possibility to add hover events to a map. Our example shows a country's name, abbreviation and population. If data size or storage is an issue, it is useful to note that adding the hover events will increase the size of your tileset. [This article](https://www.mapbox.com/blog/how-interactivity-works-utfgrid/) by Mapbox does a good job explaining the UTF-8 grid functionality.
 
@@ -177,7 +177,7 @@ Take the **server name** and the **Username** from the OpenShift page for your a
 ![sdsfgv](readme-assets/openshift_general_step_02_ftpLogin.png)
 
 
-**Navigate** to `app-root/data/`inside openshift and **paste the tilesets** you want to host.
+**Navigate** to `app-root/data/` in Cyberduck (or your FTP client) and **paste the tilesets** you want to host.
 ![sdsfgv](readme-assets/openshift_generel_step_03_cyberDuck.png)
 **Note:** If you can't connect via FTP, then you probably skipped the [preparations](#preparations) step. Then your rsa-keys have not been configured.
 
