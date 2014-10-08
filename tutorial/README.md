@@ -43,12 +43,14 @@ Add a **new project**.
 **Set a name** for your project and **untick the "Default data"-checkbox**, because we are creating a map from scratch.
 ![set project details](readme-assets/tilemill_step_02_projectDetails.png)
 
-This is what you should end up with **following**:
+You should end up with the **following**:
 ![blank project](readme-assets/tilemill_step_03_blankProject.png)
 
 
 ### Step 3: Import Map Data
-You can choose from a variety of formats, but we are going for an ESRI Shapefile. Basically the shape file is like a vector file which is made for geospatial data.
+** Note:** [optimizing your shapefiles](https://www.mapbox.com/tilemill/docs/guides/optimizing-shapefiles/) can help performance. 
+
+You can choose from a variety of formats (e.g. GeoJSON, ESRI Shapefile, etc), but in this tutorial we will use an ESRI Shapefile of the world country boundaries. A shapefile is a vector file (of points, lines, or polygons) that has attributes and is georeferenced. 
 
 Open layer menu and **add a new layer**.
 ![add new layer](readme-assets/tilemill_step_04_addLayer.png)
@@ -56,7 +58,7 @@ Open layer menu and **add a new layer**.
 **Browse Datasource** and select the **"countries.shp"** file from the tutorial folder (or use your own data). Then press **"Save & Style"**.
 ![select shapefile (or geojson) as datasource](readme-assets/tilemill_step_05_layerDetails.png)
 
-You will end up with something like **that**:
+You will end up with something like **this**:
 ![preview](readme-assets/tilemill_step_06_basicStyle.png)
 **Note:** The layer-name is already inserted, but you can always check the name in the layer menu at the bottom left.
 
@@ -77,27 +79,27 @@ Mapbox provides a [great tutorial](https://www.mapbox.com/tilemill/docs/crashcou
 
 ### (Optional Step 5: Add UTF-8 Grid )
 
-**Note:** A UTF-8 grid adds the possibility to add hover events to a map. Our example shows a country's name, abbreviation and population. But this will also increase the size of your tileset, so only add this if you need it. [This article](https://www.mapbox.com/blog/how-interactivity-works-utfgrid/) by Mapbox does a good job explaining the UTF-8 grid functionality.
+**Note:** A UTF-8 grid adds the possibility to add hover events to a map. Our example shows a country's name, abbreviation and population. If data size or storage is an issue, it is useful to note that adding the hover events will increase the size of your tileset. [This article](https://www.mapbox.com/blog/how-interactivity-works-utfgrid/) by Mapbox does a good job explaining the UTF-8 grid functionality.
 
 **Enable Interactivity** for hover events.
 ![define interactivity](readme-assets/tilemill_step_08_addInteractivity.png)
 
 **Add the [MustacheJS](https://github.com/janl/mustache.js) template**.
-For our shape file the data will look like below, but you can inspect the data of each layer in the layer menu (bottom left):
+For our shapefile the data will look like below, but you can inspect the data of each layer in the layer menu (bottom left):
 
     Country Name: {{{ADMIN}}} <br>
     Country Abbreviation: {{{ne_10m_adm}}} <br>
     Country Population: {{{POP_EST}}}
 ![Step 8](readme-assets/tilemill_step_09_addMustache.png)
 
-If you now **hover over a country**. It will show the text you defined with the mustache template, filled with the data from the shape file.
+If you now **hover over a country**. It will show the text you defined with the mustache template, filled with the data from the shapefile.
 ![Step 8](readme-assets/tilemill_step_10_testHover.png)
 
 ### Step 6: Export Map
 Hit **"Export"** and select **"MBtiles"** as a file format.
 ![export as mbtiles](readme-assets/tilemill_step_11_exportTiles.png)
 
-**Name your tileset** and **set the zoom dimensions**. Choose a zoom level from 0 (all the way zoomed out) to something around 4, to keep the file size of our tileset small. Then hit **"Export"**.
+**Name your tileset** and **set the zoom dimensions**. Here we choose a zoom level from 0 (all the way zoomed out) to something around 4, to keep the file size of our tileset small (but you might want more zoom for future projects). Then hit **"Export"**.
 ![export as mbtiles](readme-assets/tilemill_step_12_exportDetails.png)
 
 This will take a while. Once it's done: **Save it** and ...
@@ -142,7 +144,7 @@ Skip "Hard Way" and follow the tutorial at **["Check The Status"](#check-the-sta
 
 #### Hard Setup:
 ##### Step 1: Learn Git
-Openshift is using Git. If you don't know what Git means: basically Git is used to keep track of your files. No "file_v4_final_reallyfinal.png"-files anymore and you can always go back in time.
+Openshift uses [Git](http://git-scm.com/). Git is a versioning control software that helps you to keep track of your files over time. You can see the changes you make, when, and why. With Git, you can do away with all the odd filenames you might concoct when trying to archive your work (e.g. "file_v4_final_reallyfinal.png") and retrieve old versions of your file if you want.
  
 [Github](https://try.github.io/) has a fun introduction into Git, and [this guy](http://betterexplained.com/articles/a-visual-guide-to-version-control/) did a nice writeup why you should use somekind version control (there are alternatives to git). So if you don't know anything about it. Now is the time.
 
