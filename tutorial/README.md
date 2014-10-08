@@ -168,13 +168,17 @@ or:
 go to `http://projectname-youropenshiftdomain.rhcloud.com/ping` and check if the server returns **"tilehut says pong!"**. 
 
 If it does you are almost there. If it doesn't the repository probably didn't sync properly. But you can check that also via FTP (see next step).
-![sdsfgv](readme-assets/openshift_hard_step_04_pingPong.png)
+![sdsfgv](readme-assets/openshift_general_step_01_pingPong.png)
 
 #### Add tiles via FTP
-**Connect via FTP** to Openshift. There is a [quick Tutorial](http://www.openshifttutorial.cu.cc/access-to-openshift-through-sftp/) on how to conenct via [Cyberduck](https://cyberduck.io/), but it will work with [Filezilla](https://filezilla-project.org/) or every other FTP client as well.
+**Connect via FTP** to Openshift. We use [Cyberduck](https://cyberduck.io/) to connect, but it will work with [Filezilla](https://filezilla-project.org/) or every other FTP client as well.
+
+Take the **server name** and the **Username** from the OpenShift page for your application. Tick the **"Use Public Authentication"** checkbox and select "**id_rsa**" (Location: `/users/your_name/.ssh/id_rsa`).
+![sdsfgv](readme-assets/openshift_general_step_02_ftpLogin.png)
+
 
 **Navigate** to `app-root/data/`inside openshift and **paste the tilesets** you want to host.
-![sdsfgv](readme-assets/openshift_hard_step_05_cyberDuck.png)
+![sdsfgv](readme-assets/openshift_generel_step_03_cyberDuck.png)
 **Note:** If you can't connect via FTP, then you probably skipped the [preparations](#preparations) step. Then your rsa-keys have not been configured.
 
 **Note:** The reason why this folder is empty is how cloud computing works. If you want to serve tiles on a grand scale you should set up a seperate server, because now the tiles would not be mirrored properly if you'd set up a scalable project. It's enough for our purpose, so we keep it simple.
@@ -182,7 +186,7 @@ If it does you are almost there. If it doesn't the repository probably didn't sy
 #### Test the Tiles
 **Goto** `http://project-youropenshiftdomain.rhcloud.com/name-of-tileset/map` and look at the beautiful map you just hosted. You can now use them in your website or anywhere else. Check out our example files.
 
-![sdsfgv](readme-assets/openshift_hard_step_06_result.png)
+![sdsfgv](readme-assets/openshift_general_step_04_result.png)
 
 ## 3. Use The Tileset
 We included some example files into the repository which show you how to use [Leaflet JS](http://leafletjs.com/) or [Mapbox GL JS](https://www.mapbox.com/blog/mapbox-gl-js/) to display the maps using your tileset.
