@@ -77,11 +77,12 @@ Hit **"Export"** and select **"MBtiles"** as a file format.
 **Name your tileset** and **set the zoom dimensions**. Choose a zoom level from 0 (all the way zoomed out) to something around 4, to keep the file size of our tileset small. Then hit **"Export"**.
 ![export as mbtiles](readme-assets/step_12_exportDetails.png)
 
-This will take a while. Once it's done: **Save it** and **move the ".mbtiles"-file** ...
+This will take a while. Once it's done: **Save it** and ...
 ![save mbtiles file](readme-assets/step_13_save.png)
 
-... into the **"data"-folder** of your TileHutJS directory to look like following:
+... **move the "MBtiles"** into the data folder of your TileHutJS directory. This will look like following:
 ![move tiles](readme-assets/step_14_result.png)
+**Note:** We also added two other tilesets. You will just have one.
 
 ## 2. Run Tile Server
 ### Option 1: Via Localhost
