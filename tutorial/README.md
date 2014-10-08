@@ -3,25 +3,27 @@ Getting Started with Tiles
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-  - [1. Create Tileset (in TileMill)](#1-create-tileset-in-tilemill)
-    - [Step 1: Get TileMill](#step-1-get-tilemill)
-    - [Step 2: Create a new Project](#step-2-create-a-new-project)
-    - [Step 3: Import Map Data](#step-3-import-map-data)
-    - [Step 4: Style your Map](#step-4-style-your-map)
-    - [(Optional Step 5: Add UTF-8 Grid )](#optional-step-5-add-utf-8-grid-)
-    - [Step 6: Export Map](#step-6-export-map)
-  - [2. Run Tile Server](#2-run-tile-server)
-    - [Option 1: Via Localhost](#option-1-via-localhost)
-    - [Option 2: Via OpenShift](#option-2-via-openshift)
-      - [Easy Setup:](#easy-setup)
-      - [Hard Setup:](#hard-setup)
-        - [Step 1: Learn Git](#step-1-learn-git)
-        - [Step 2: Create New Project](#step-2-create-new-project)
-        - [Step 3: Set up repository Repository](#step-3-set-up-repository-repository)
-      - [Check the Status](#check-the-status)
-      - [Add tiles via FTP](#add-tiles-via-ftp)
-      - [Test the Tiles](#test-the-tiles)
-  - [3. Use The Tileset](#3-use-the-tileset)
+
+- [1. Create Tileset (in TileMill)](#1-create-tileset-in-tilemill)
+  - [Step 1: Get TileMill](#step-1-get-tilemill)
+  - [Step 2: Create a new Project](#step-2-create-a-new-project)
+  - [Step 3: Import Map Data](#step-3-import-map-data)
+  - [Step 4: Style your Map](#step-4-style-your-map)
+  - [(Optional Step 5: Add UTF-8 Grid )](#optional-step-5-add-utf-8-grid-)
+  - [Step 6: Export Map](#step-6-export-map)
+- [2. Run Tile Server](#2-run-tile-server)
+  - [Option 1: Via Localhost](#option-1-via-localhost)
+  - [Option 2: Via OpenShift](#option-2-via-openshift)
+    - [Preparations:](#preparations)
+    - [Easy Setup:](#easy-setup)
+    - [Hard Setup:](#hard-setup)
+      - [Step 1: Learn Git](#step-1-learn-git)
+      - [Step 2: Create New Project](#step-2-create-new-project)
+      - [Step 3: Set Up Repository](#step-3-set-up-repository)
+    - [Check the Status](#check-the-status)
+    - [Add tiles via FTP](#add-tiles-via-ftp)
+    - [Test the Tiles](#test-the-tiles)
+- [3. Use The Tileset](#3-use-the-tileset)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -117,6 +119,12 @@ Open the **Terminal**, **navigate to the TileHutJS** folder and **run** `node se
 ### Option 2: Via OpenShift
 [OpenShift](https://www.openshift.com/) is a service, where you can set up a cloud-based application. The Basic functionality is free.
 
+If you are new to Openshift, there is a [beginner's guide](https://developers.openshift.com/en/getting-started-overview.html) for you.
+
+#### Preparations:
+- Install the [Openshift Client Tools](https://developers.openshift.com/en/getting-started-client-tools.html)
+
+
 #### Easy Setup:
 Click **"Create your first application"**.
 ![sdsfgv](readme-assets/openshift_easy_step_01_firstApplication.png)
@@ -140,11 +148,11 @@ Openshift is using Git. If you don't know what Git means: basically Git is used 
 
 ##### Step 2: Create New Project
 **Log into [Openshift](https://www.openshift.com/)** or create an account and create a **new project**. 
-Select Application-type: **Node.js** and fill out the rest. If you are new to Openshift, there is a [beginner's guide](https://developers.openshift.com/en/getting-started-overview.html) for you.
+Select Application-type: **Node.js** and fill out the rest.
 
 ![move tiles](readme-assets/openshift_hard_step_01_openshiftApplication.png)
 
-##### Step 3: Set up repository Repository
+##### Step 3: Set Up Repository
 You can either way just push the TileHutJS repository onto Openshift or clone the repo and add the files you need. Grab the ssh-key from your application site on Openshift.
 
      git clone ssh://somekey@projectname-youropenshiftdomain.rhcloud.com/~/git/projectname.git/
@@ -161,10 +169,11 @@ If it does you are almost there. If it doesn't the repository probably didn't sy
 ![sdsfgv](readme-assets/openshift_hard_step_04_pingPong.png)
 
 #### Add tiles via FTP
-**Connect via FTP** to Openshift. There is a [quick Tutorial](http://www.openshifttutorial.cu.cc/access-to-openshift-through-sftp/) on how to conenct via Cyberduck, but it will work with Filezilla or every other FTP client as well.
+**Connect via FTP** to Openshift. There is a [quick Tutorial](http://www.openshifttutorial.cu.cc/access-to-openshift-through-sftp/) on how to conenct via [Cyberduck](https://cyberduck.io/), but it will work with [Filezilla](https://filezilla-project.org/) or every other FTP client as well.
 
 **Navigate** to `app-root/data/`inside openshift and **paste the tilesets** you want to host.
 ![sdsfgv](readme-assets/openshift_hard_step_05_cyberDuck.png)
+**Note:** If you can't connect via FTP, then you probably skipped the [preparations](#preparations) step. Then your rsa-keys have not been configured.
 
 **Note:** The reason why this folder is empty is how cloud computing works. If you want to serve tiles on a grand scale you should set up a seperate server, because now the tiles would not be mirrored properly if you'd set up a scalable project. It's enough for our purpose, so we keep it simple.
 
