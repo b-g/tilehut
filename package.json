@@ -8,7 +8,7 @@
     "Benedikt Groß <b-g> (http://benedikt-gross.de/)",
     "Joey Lee <joeyklee> (http://jk-lee.com/)",
     "Stephan Bogner <bognerstephan> (http://stephanbogner.de/)",
-    "Stefan Landsbek"
+    "Stefan Landsbek <slandsbek> (http://47nord.de/)"
   ],
   "dependencies": {
     "express": "4.9.1",

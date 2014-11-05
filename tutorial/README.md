@@ -16,7 +16,7 @@ Getting Started with Tiles
   - [Option 2: Via OpenShift](#option-2-via-openshift)
     - [Preparations:](#preparations)
     - [Easy Setup:](#easy-setup)
-    - [Hard Setup:](#hard-setup)
+    - [Expert Setup:](#expert-setup)
       - [Step 1: Learn Git](#step-1-learn-git)
       - [Step 2: Create New Project](#step-2-create-new-project)
       - [Step 3: Set Up Repository](#step-3-set-up-repository)
@@ -32,7 +32,7 @@ Getting Started with Tiles
 ### Step 1: Get TileMill
 Download and install [TileMill](https://www.mapbox.com/tilemill/) if you haven't done so already. If this is new to you: TileMill is an design studio by the amazing team at [Mapbox](mapbox.com) to create beautiful maps.
 
-And If you haven't heard of Mapbox – check it out their [website](mapbox.com) and [blog](https://www.mapbox.com/blog/).
+And If you haven't heard of Mapbox – check out their [website](mapbox.com) and [blog](https://www.mapbox.com/blog/).
 
 Once everything is set up, we can start.
 
@@ -40,30 +40,33 @@ Once everything is set up, we can start.
 Add a **new project**.
 ![add new project](readme-assets/tilemill_step_01_newProject.png)
 
-**Set a name** for your project and **untick the "Default data"-checkbox**, because we are creating a map from scratch.
+**Set a name** for your project and **untick the "Default data"-checkbox**, we are going to creating a map from scratch. Of course!
 ![set project details](readme-assets/tilemill_step_02_projectDetails.png)
 
-You should end up with the **following**:
+You should end up with something like the following:
 ![blank project](readme-assets/tilemill_step_03_blankProject.png)
 
 
-### Step 3: Import Map Data
-** Note:** [optimizing your shapefiles](https://www.mapbox.com/tilemill/docs/guides/optimizing-shapefiles/) can help performance. 
+### Step 3: Import Data
 
-You can choose from a variety of formats (e.g. GeoJSON, ESRI Shapefile, etc), but in this tutorial we will use an ESRI Shapefile of the world country boundaries. A shapefile is a vector file (of points, lines, or polygons) that has attributes and is georeferenced. 
+You can choose from a variety of formats (e.g. GeoJSON, ESRI Shapefile, etc), but in this tutorial we will use an ESRI Shapefile of the world country boundaries. A shapefile is a vector file (of either points, lines, or polygons) that has attributes and is georeferenced. 
 
-Open layer menu and **add a new layer**.
+** Hint:** [optimizing your shapefiles](https://www.mapbox.com/tilemill/docs/guides/optimizing-shapefiles/) can help increasing the performance or your data in tilemill.
+
+Open the layer menu and **add a new layer**.
 ![add new layer](readme-assets/tilemill_step_04_addLayer.png)
 
 **Browse Datasource** and select the **"countries.shp"** file from the tutorial folder (or use your own data). Then press **"Save & Style"**.
 ![select shapefile (or geojson) as datasource](readme-assets/tilemill_step_05_layerDetails.png)
 
-You will end up with something like **this**:
+Now you should see the world country boundaries:
 ![preview](readme-assets/tilemill_step_06_basicStyle.png)
-**Note:** The layer-name is already inserted, but you can always check the name in the layer menu at the bottom left.
+
 
 ### Step 4: Style your Map
-Mapbox provides a [great tutorial](https://www.mapbox.com/tilemill/docs/crashcourse/styling/) on how to style maps with tilemill, or use **our style** and follow the tutorial:
+Mapbox has a [great tutorial](https://www.mapbox.com/tilemill/docs/crashcourse/styling/) on how to style maps with tilemill.
+
+We go miniml and set the style for the countries to grey thin lines with a white fill:
 
     Map {
       background-color: #fff;
@@ -79,7 +82,7 @@ Mapbox provides a [great tutorial](https://www.mapbox.com/tilemill/docs/crashcou
 
 ### (Optional Step 5: Add UTF-8 Grid)
 
-**Note:** A UTF-8 grid adds the possibility to add hover events to a map. Our example shows a country's name, abbreviation and population. If data size or storage is an issue, it is useful to note that adding the hover events will increase the size of your tileset. [This article](https://www.mapbox.com/blog/how-interactivity-works-utfgrid/) by Mapbox does a good job explaining the UTF-8 grid functionality.
+**Note:** A UTF-8 grid adds the possibility to add interaction hover events to a map. Our example shows for instance for every country feature the name, abbreviation and population. If data size or storage is an issue, it is useful to know that adding the hover events will increase the size of your tileset. [This article](https://www.mapbox.com/blog/how-interactivity-works-utfgrid/) by Mapbox does a good job explaining the UTF-8 grid functionality.
 
 **Enable Interactivity** for hover events.
 ![define interactivity](readme-assets/tilemill_step_08_addInteractivity.png)
@@ -99,22 +102,22 @@ If you now **hover over a country**. It will show the text you defined with the 
 Hit **"Export"** and select **"MBtiles"** as a file format.
 ![export as mbtiles](readme-assets/tilemill_step_11_exportTiles.png)
 
-**Name your tileset** and **set the zoom dimensions**. Here we choose a zoom level from 0 (all the way zoomed out) to something around 4, to keep the file size of our tileset small (but you might want more zoom for future projects). Then hit **"Export"**.
+Give your tileset a **Name** and set the **min - max zoom dimensions**. Here we choose a zoom level from 0 (all the way zoomed out) to something around 4, to keep the file size of our tileset small (but you quite likley want more zoom levels for future projects). Then hit **"Export"**.
 ![export as mbtiles](readme-assets/tilemill_step_12_exportDetails.png)
 
 This will take a while. Once it's done: **Save it** and ...
 ![save mbtiles file](readme-assets/tilemill_step_13_save.png)
 
-... **move the "MBtiles"** into the data folder of your TileHutJS directory. This will look like following:
+... **move the "MBtiles"** into the data folder of your Tilehut.js directory. This will look like following:
 ![move tiles](readme-assets/tilemill_step_14_result.png)
-**Note:** We also added two other tilesets. You will just have one.
+
 
 ## 2. Run Tile Server
 ### Option 1: Via Localhost
-Open the **Terminal**, **navigate to the TileHutJS** folder and **run** `node server.js` to serve the files. As you can see, your server is now running at <http://localhost:8000/>.
+Open the **Terminal**, **navigate to the Tilehut.js** folder and **run** `node server.js` to serve the files. As you can see, your server is now running at <http://localhost:8000/>.
 ![sdsfgv](readme-assets/localhost_step_01_startServer.png)
 
-**Note:** You can inspect tilesets (even unknown ones) by opening them in your **browser**, e.g. <http://localhost:8000/tiles-world-simple/map/>. This works for normal raster tiles, as well as UTF-8 tiles and even vector tiles.
+You can inspect tilesets (even unknown ones) by opening them in your **browser**, e.g. <http://localhost:8000/tiles-world-simple/map/>. This works for normal raster tiles, as well as UTF-8 tiles and even vector tiles.
 
 ![sdsfgv](readme-assets/localhost_step_02_mapPreview.png)
 
@@ -140,22 +143,22 @@ Choose the **name of your application** (and your OpenShift domain name) and use
 Click **Continue**.
 ![sdsfgv](readme-assets/openshift_easy_step_04_applicationFinish.png)
 
-Skip "Hard Way" and follow the tutorial at **["Check The Status"](#check-the-status)**
+**Done!** Hence you can "Expert Setup" and follow the tutorial at **["Check The Status"](#check-the-status)**
 
-#### Hard Setup:
+#### Expert Setup:
 ##### Step 1: Learn Git
-Openshift uses [Git](http://git-scm.com/). Git is a versioning control software that helps you to keep track of your files over time. You can see the changes you make, when, and why. With Git, you can do away with all the odd filenames you might concoct when trying to archive your work (e.g. "file_v4_final_reallyfinal.png") and retrieve old versions of your file if you want.
+Openshift uses [Git](http://git-scm.com/). Git is a versioning control software that helps you to keep track of your files over time. 
  
-[Github](https://try.github.io/) has a fun introduction into Git, and [this guy](http://betterexplained.com/articles/a-visual-guide-to-version-control/) did a nice writeup why you should use somekind version control (there are alternatives to git). So if you don't know anything about it. Now is the time.
+[Github](https://try.github.io/) has a fun introduction into Git, and [this guy](http://betterexplained.com/articles/a-visual-guide-to-version-control/) did a nice writeup why you should use somekind version control (there are alternatives to git). So if you don't know anything about it. Now is the time to dive in.
 
 ##### Step 2: Create New Project
-**Log into [Openshift](https://www.openshift.com/)** or create an account and create a **new project**. 
+**Log into [Openshift](https://www.openshift.com/)** or and create a **new project**. 
 Select Application-type: **Node.js** and fill out the rest.
 
 ![move tiles](readme-assets/openshift_hard_step_01_openshiftApplication.png)
 
 ##### Step 3: Set Up Repository
-You can either way just push the TileHutJS repository onto Openshift or clone the repo and add the files you need. Grab the ssh-key from your application site on Openshift.
+You can either way just push the Tilehut.js repository onto Openshift or clone the repo and add the files you need. Grab the ssh-key from your application site on Openshift.
 
      git clone ssh://somekey@projectname-youropenshiftdomain.rhcloud.com/~/git/projectname.git/
      
@@ -165,30 +168,30 @@ or:
      
 
 #### Check the Status
-go to `http://projectname-youropenshiftdomain.rhcloud.com/ping` and check if the server returns **"tilehut says pong!"**. 
+go to `http://appname-youropenshiftdomain.rhcloud.com/ping` and check if the server returns **"tilehut says pong!"**. 
 
-If it does you are almost there. If it doesn't the repository probably didn't sync properly. But you can check that also via FTP (see next step).
+If it does you are almost there. If it doesn't the repository probably didn't sync correctly. But you can check that also via SFTP (see next step).
 ![sdsfgv](readme-assets/openshift_general_step_01_pingPong.png)
 
-#### Add tiles via FTP
-**Connect via FTP** to Openshift. We use [Cyberduck](https://cyberduck.io/) to connect, but it will work with [Filezilla](https://filezilla-project.org/) or every other FTP client as well.
+#### Add tiles via SFTP
+**Connect via FTP** to Openshift. We use [Cyberduck](https://cyberduck.io/) to connect, but it will work with [Filezilla](https://filezilla-project.org/) or every other SFTP client as well.
 
-Take the **server name** and the **Username** from the OpenShift page for your application. Tick the **"Use Public Authentication"** checkbox and select "**id_rsa**" (Location: `/users/your_name/.ssh/id_rsa`).
+Take the **server name** and the **username** from the OpenShift page for your application. Tick the **"Use Public Authentication"** checkbox and select "**id_rsa**" (It come with the git setup and can be found on your local hard drive here: `~/.ssh/id_rsa` e.g. /Users/benedikt/.ssh/id_rsa).
+
 ![sdsfgv](readme-assets/openshift_general_step_02_ftpLogin.png)
 
 
-**Navigate** to `app-root/data/` in Cyberduck (or your FTP client) and **paste the tilesets** you want to host.
+**Navigate** to `app-root/data/` in Cyberduck (or your FTP client) and **upload the tilesets** you want to host.
 ![sdsfgv](readme-assets/openshift_generel_step_03_cyberDuck.png)
-**Note:** If you can't connect via FTP, then you probably skipped the [preparations](#preparations) step. Then your rsa-keys have not been configured.
+If you can't connect via FTP, then you probably skipped the [preparations](#preparations) step. Then your rsa-keys have not been configured.
 
-**Note:** The reason why this folder is empty is how cloud computing works. If you want to serve tiles on a grand scale you should set up a seperate server, because now the tiles would not be mirrored properly if you'd set up a scalable project. It's enough for our purpose, so we keep it simple.
 
 #### Test the Tiles
-**Goto** `http://project-youropenshiftdomain.rhcloud.com/name-of-tileset/map` and look at the beautiful map you just hosted. You can now use them in your website or anywhere else. Check out our example files.
+**Goto** `{appname}-{youropenshiftdomain}.rhcloud.com/{tilesetname}/map` and look at the beautiful map you just hosted. Well done! You can now use them in your website or anywhere else. For a quickstart on this you might want to check out our examples folder.
 
 ![sdsfgv](readme-assets/openshift_general_step_04_result.png)
 
 ## 3. Use The Tileset
-We included some example files into the repository which show you how to use [Leaflet JS](http://leafletjs.com/) or [Mapbox GL JS](https://www.mapbox.com/blog/mapbox-gl-js/) to display the maps using your tileset.
+We included some example files into the repository which show you how to use [Leaflet JS](http://leafletjs.com/) or [Mapbox GL JS](https://www.mapbox.com/blog/mapbox-gl-js/) to display a map using your tileset.
 
 **Check:** `tilehut/examples/` ([Github](https://github.com/b-g/tilehut/tree/master/examples))

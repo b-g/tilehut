@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset='utf-8'/>
-    <title>Simple Raster Map Example in TileHut with Leaflet</title>
+    <title>Tilehut.js Raster Tiles Demo</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <style>
         body { margin:0; padding:0; }
@@ -18,7 +18,7 @@
 		// create a map in the "map" div, set the view to a given place and zoom
 		var map = L.map('map').setView([0, 0], 3);
 
-		// add an OpenStreetMap tile layer
+		// add a tileset layer
 		L.tileLayer('http://0.0.0.0:8000/tiles-world-simple/{z}/{x}/{y}.png').addTo(map);
 	</script>
 </body>

@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Leaflet Grid Demo</title>
+	<title>Tilehut.js Utf-8 Grid Tiles Demo</title>
 
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
@@ -31,15 +31,15 @@
 	<div id="map"></div>
 	<div id="hover">Hover over a country</div>
 	<script type="text/javascript">
-		// add an OpenStreetMap tile layer
+		// add a tileset layer
 		var tiles = L.tileLayer('http://0.0.0.0:8000/tiles-world-utfgrid/{z}/{x}/{y}.png');
 
-		// url to utf-8 grid
+		// url to utf-8 grid json
 		var utfGrid = new L.UtfGrid('http://0.0.0.0:8000/tiles-world-utfgrid/{z}/{x}/{y}.grid.json', {
 		    useJsonP: false
 		});
 
-		// if hovering above a map
+		// add hover behaviour
 		utfGrid.on('mouseover', function (e) {
 			if (e.data) {
 				document.getElementById('hover').innerHTML = e.data.ne_10m_adm;
@@ -48,7 +48,7 @@
 			}
 		});
 
-		//add tiles and grid to map, also set view
+		// add tiles and utf-8 grid to map
 		var map = L.map('map')
 				.setView([52.475754, -0.851355], 2)
 				.addLayer(tiles)
