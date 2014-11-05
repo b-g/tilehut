@@ -1,7 +1,7 @@
 Tilehut.js
 ==========
+### A modest, but cozy home for your your map tiles
 
-Tagline … An attempt to port the spirit of the [Processing](http://processing.org/) visualization language to Adobe Indesign.
 
 Tilehut.js is a project by:
 
@@ -12,10 +12,11 @@ Tilehut.js is a project by:
 
 
 ## Introduction
-Tiles and maps are awesome ... Some kind of introduction here ... mention [Mike's Migurski](http://mike.teczno.com/) [Tilestache](http://tilestache.org/), the awesome technologies by Mapbox, tilehut is basically just a wraper around [Mapbox's](https://www.mapbox.com/) [node-mbtiles](https://github.com/mapbox/node-mbtiles) and that hosting on Mapbox is the much better solution for big project etc. 
+Take all the best things about the interactivity of the web and couple it with exploratory nature of maps, and you get the modern web map tile. Tiles are one of the fundamental building blocks of modern web maps, providing a clever solution to zoom, pan, click, and interact with the infinity of discoverable things living in geospace. Underlying map tiles is a tasty combination of awesome technologies like [Mike Migurski's](http://mike.teczno.com/) [Tilestache](http://tilestache.org/) and the brilliant tools being built by [Mapbox](mapbox.com). 
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Drawing from these inspiring developments in the web mapping world, we bring you Tilehut.js, a modest, but cozy home for your map tiles. Tilehut.js is built to serve the tiles for your average web mapping project and is essentially a simple wrapper around Mapbox's [node-mbtiles](https://github.com/mapbox/node-mbtiles). Tilehut.js is indeed a humble tile server and is certainly not a replacement for the all excellent support that comes with Mapbox hosting for those more demanding or bigger projects.
 
+We're thrilled to bring you Tilehut.js and even more excited to see what projects you brew up! Happy mapping!
 
 ## Your Own Hosted Tileserver in 5 Minutes
 1. Login to **[OpenShift](https://www.openshift.com/)** and create a **new application** (the free account will give you already a 1GB tileserver)
