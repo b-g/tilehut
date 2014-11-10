@@ -1,7 +1,7 @@
 {
   "name": "tilehut",
   "version": "1.0.0",
-  "description": "your box for mbtiles",
+  "description": "a cozy home for your mbtiles",
   "url": "https://github.com/b-g/tilehut",
   "author": "mr. tilehut",
   "contributors": [
@@ -12,7 +12,7 @@
   ],
   "dependencies": {
     "express": "4.9.1",
-    "mbtiles": "0.5.0"
+    "mbtiles": "0.7.1"
   },
   "main": "server.js",
   "repository": {
