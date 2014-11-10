@@ -77,9 +77,9 @@ The tiles are served via `server/{tilesetname}/{z}/{x}/{y}.png`
 Get the meta informations e.g. lat/lon bounds, min and max zoom level etc. via `server/name_of_tileset/meta.json`
      
 ### Vector Tiles
-Adding `?vectortileflag=true` to meta.json path (e.g. `localhost:8080/tiles_vector/meta.json?vectortileflag=true`) adds the "tiles" array property to the json. This property includes the path to your tiles, which is necessary for using vector maps in Mapbox GL JS.
+Adding `?vectortileflag=true` to meta.json path (e.g. `server/tileset/meta.json?vectortileflag=true`) adds the "tiles" array property to the json. This property includes the path to your tiles, which is necessary for using vector maps in Mapbox GL JS.
 
-MapBox reference <https://github.com/mapbox/tilejson-spec/tree/master/2.1.0>
+See MapBox' [TileJSON reference](https://github.com/mapbox/tilejson-spec/tree/master/2.1.0) for more information.
 
 ### Ping (is my server running?)
 Check whether you server works by calling `server/ping`. Server should respond: "tilehut says pong!"
