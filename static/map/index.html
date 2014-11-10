@@ -98,7 +98,7 @@
 				maxZoom: tilesetMaxZoom,
 			});
 			var tilesetType = getTilesetType(meta);
-			var tilesetTemplate = meta.template;
+			var tilesetMustacheTemplate = meta.template;
 			var mapStyle = {
 				  "version": 5,
 				  "sources": {
@@ -128,17 +128,17 @@
 					  }
 				  ]
 			};
-			createMapFromType( tilesetType, mapDiv, tilesetCenter, tilesetUrl, tilesLayer, mapStyle, tilesetMaxZoom);
+			createMapFromType( tilesetType, mapDiv, tilesetCenter, tilesetUrl, tilesLayer, mapStyle, tilesetMaxZoom, tilesetMustacheTemplate);
 		}
 
-		function createMapFromType(tilesetType, mapDiv, tilesetCenter, tilesetUrl, tilesLayer, mapStyle, tilesetMaxZoom){
+		function createMapFromType(tilesetType, mapDiv, tilesetCenter, tilesetUrl, tilesLayer, mapStyle, tilesetMaxZoom, tilesetMustacheTemplate){
 			switch (tilesetType){
 				case 'raster':
 					createRasterMap(mapDiv, tilesetCenter, tilesLayer, tilesetMaxZoom);
 				break;
 				case 'raster-utf8':
 					createRasterMap(mapDiv, tilesetCenter, tilesLayer, tilesetMaxZoom);
-					addUTF8Grid(tilesetUrl);
+					addUTF8Grid(tilesetUrl, tilesetMustacheTemplate);
 				break;
 				case 'vector':
 					createVectorMap( mapDiv, tilesetCenter, mapStyle, tilesetMaxZoom);
@@ -155,7 +155,7 @@
 			new L.Hash(map);	//adds hash functionality to leaflet
 		}
 
-		function addUTF8Grid(tilesetUrl){
+		function addUTF8Grid(tilesetUrl, tilesetMustacheTemplate){
 			$('#inspector').show();
 
 			var utfGrid = new L.UtfGrid(tilesetUrl+'{z}/{x}/{y}.grid.json', {
@@ -176,13 +176,11 @@
 					$('#inspectorTable').html( tableContent );
 
 
-					//hackaround for tilemill export, to simulate hover event
+					//Use mustache template from Tilemill
 					var objClone = jQuery.extend({}, obj);;
 					objClone.__teaser__ = true;
 
-					console.log(obj);
-
-					mustacheOutput = Mustache.render( tilesetTemplate , objClone);
+					mustacheOutput = Mustache.render( tilesetMustacheTemplate , objClone);
 					$('#inspectorMustache').html( mustacheOutput );
 				}
 			});
