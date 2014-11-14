@@ -7,9 +7,9 @@ Getting Started with Tiles
 - [1. Create Tileset (in TileMill)](#1-create-tileset-in-tilemill)
   - [Step 1: Get TileMill](#step-1-get-tilemill)
   - [Step 2: Create a new Project](#step-2-create-a-new-project)
-  - [Step 3: Import Map Data](#step-3-import-map-data)
+  - [Step 3: Import Data](#step-3-import-data)
   - [Step 4: Style your Map](#step-4-style-your-map)
-  - [(Optional Step 5: Add UTF-8 Grid)](#optional-step-5-add-utf-8-grid-)
+  - [(Optional Step 5: Add UTF-8 Grid)](#optional-step-5-add-utf-8-grid)
   - [Step 6: Export Map](#step-6-export-map)
 - [2. Run Tile Server](#2-run-tile-server)
   - [Option 1: Via Localhost](#option-1-via-localhost)
@@ -21,7 +21,7 @@ Getting Started with Tiles
       - [Step 2: Create New Project](#step-2-create-new-project)
       - [Step 3: Set Up Repository](#step-3-set-up-repository)
     - [Check the Status](#check-the-status)
-    - [Add tiles via FTP](#add-tiles-via-ftp)
+    - [Add tiles via SFTP](#add-tiles-via-sftp)
     - [Test the Tiles](#test-the-tiles)
 - [3. Use The Tileset](#3-use-the-tileset)
 
@@ -170,20 +170,20 @@ or:
 #### Check the Status
 go to `http://appname-youropenshiftdomain.rhcloud.com/ping` and check if the server returns **"tilehut says pong!"**. 
 
-If it does you are almost there. If it doesn't the repository probably didn't sync correctly. But you can check that also via SFTP (see next step).
+If it does you are almost there. If it doesn't the repository probably didn't sync correctly. But you can check that also via FTP (see next step).
 ![sdsfgv](readme-assets/openshift_general_step_01_pingPong.png)
 
 #### Add tiles via SFTP
-**Connect via FTP** to Openshift. We use [Cyberduck](https://cyberduck.io/) to connect, but it will work with [Filezilla](https://filezilla-project.org/) or every other SFTP client as well.
+**Connect via SFTP** to Openshift. We use [Cyberduck](https://cyberduck.io/) to connect, but it will work with [Filezilla](https://filezilla-project.org/) or every other SFTP client as well.
 
-Take the **server name** and the **username** from the OpenShift page for your application. Tick the **"Use Public Authentication"** checkbox and select "**id_rsa**" (It come with the git setup and can be found on your local hard drive here: `~/.ssh/id_rsa` e.g. /Users/benedikt/.ssh/id_rsa).
+**Select SFTP** as protocol, then take the **server name** and the **username** from the OpenShift page for your application. Tick the **"Use Public Authentication"** checkbox and select "**id_rsa**" (It come with the git setup and can be found on your local hard drive here: `~/.ssh/id_rsa` e.g. /Users/benedikt/.ssh/id_rsa).
 
-![sdsfgv](readme-assets/openshift_general_step_02_ftpLogin.png)
+![sdsfgv](readme-assets/openshift_general_step_02_sftpLogin.png)
 
 
 **Navigate** to `app-root/data/` in Cyberduck (or your FTP client) and **upload the tilesets** you want to host.
 ![sdsfgv](readme-assets/openshift_generel_step_03_cyberDuck.png)
-If you can't connect via FTP, then you probably skipped the [preparations](#preparations) step. Then your rsa-keys have not been configured.
+If you can't connect via FTP, then you probably skipped the [preparations](#preparations) step or you chose FTP instead of SFTP. Then your rsa-keys have not been configured.
 
 
 #### Test the Tiles
