@@ -1,3 +1,5 @@
+![tile hut cover](assets/tilehutjs_title.png)
+
 Tilehut.js
 ==========
 ### A modest, but cozy home for your map tiles
