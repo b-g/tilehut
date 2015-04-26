@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 7,
   "sources": {
     "mapbox": {
       "type": "vector",
@@ -10,7 +10,7 @@
   "layers": [
   {
     "id": "background",
-    "style": {
+    "paint": {
       "background-color": "#C5D1ED"
     },
     "type": "background"
@@ -18,7 +18,7 @@
   {
     "source": "mapbox",
     "source-layer": "admin-countries",
-    "style": {
+    "paint": {
       "fill-color": "#EDF0FD",
       "fill-outline-color": "#FCFCFF"
     },
