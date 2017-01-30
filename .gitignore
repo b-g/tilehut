@@ -1,3 +1,6 @@
 .DS_Store
 node_modules
 tilehut_blogpost.md
+data/de_berlin_1_100.mbtiles
+
+data/test.mbtiles

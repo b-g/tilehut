@@ -11,8 +11,10 @@
     "Stefan Landsbek <slandsbek> (http://47nord.de/)"
   ],
   "dependencies": {
-    "express": "4.9.1",
-    "mbtiles": "0.7.1"
+    "express": "^4.12.4",
+    "mbtiles": "^0.8.0",
+    "body-parser": "~1.0.0"
+
   },
   "main": "server.js",
   "repository": {
