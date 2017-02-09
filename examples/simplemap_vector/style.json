@@ -1,10 +1,9 @@
 {
-  "version": 7,
+  "version": 8,
   "sources": {
-    "mapbox": {
+    "tilehut": {
       "type": "vector",
-      "url": "http://0.0.0.0:8000/tiles-world-vector/meta.json?vectortileflag=true",
-      "maxzoom": 15
+      "url": "http://0.0.0.0:8000/tiles-world-vector/meta.json?vectortileflag=true"
     }
   },
   "layers": [
@@ -16,8 +15,9 @@
     "type": "background"
   },
   {
-    "source": "mapbox",
-    "source-layer": "admin-countries",
+    "id": "countries-fill",
+    "source": "tilehut",
+    "source-layer": "countriesgeojson",
     "paint": {
       "fill-color": "#EDF0FD",
       "fill-outline-color": "#FCFCFF"
@@ -25,3 +25,4 @@
     "type": "fill"
   }]
 }
+
