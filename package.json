@@ -1,6 +1,6 @@
 {
   "name": "tilehut",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "a cozy home for your mbtiles",
   "url": "https://github.com/b-g/tilehut",
   "author": "mr. tilehut",
@@ -10,16 +10,22 @@
     "Stephan Bogner <bognerstephan> (http://stephanbogner.de/)",
     "Stefan Landsbek <slandsbek> (http://47nord.de/)"
   ],
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "watch 'node server.js' ."
+  },
   "dependencies": {
-    "express": "^4.12.4",
-    "mbtiles": "^0.8.0",
-    "body-parser": "~1.0.0"
-
+    "body-parser": "^1.16.0",
+    "express": "^4.14.1",
+    "mbtiles": "^0.9.0"
   },
   "main": "server.js",
   "repository": {
     "type": "git",
     "url": "http://github.com/b-g/tilehut.git"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "watch": "^1.0.1"
+  }
 }
