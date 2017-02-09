@@ -4,13 +4,15 @@ Getting Started with Tiles
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [1. Create Tileset (in TileMill)](#1-create-tileset-in-tilemill)
+
+- [1A. Create Raster/Bitmap Tileset (in TileMill)](#1a-create-rasterbitmap-tileset-in-tilemill)
   - [Step 1: Get TileMill](#step-1-get-tilemill)
   - [Step 2: Create a new Project](#step-2-create-a-new-project)
   - [Step 3: Import Data](#step-3-import-data)
   - [Step 4: Style your Map](#step-4-style-your-map)
   - [(Optional Step 5: Add UTF-8 Grid)](#optional-step-5-add-utf-8-grid)
   - [Step 6: Export Map](#step-6-export-map)
+- [1B. Create Vector Tiles (with GeoJSON & Tippecanoe)](#1b-create-vector-tiles-with-geojson--tippecanoe)
 - [2. Run Tile Server](#2-run-tile-server)
   - [Option 1: Via Localhost](#option-1-via-localhost)
   - [Option 2: Via OpenShift](#option-2-via-openshift)
@@ -27,7 +29,8 @@ Getting Started with Tiles
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## 1. Create Tileset (in TileMill)
+
+## 1A. Create Raster/Bitmap Tileset (in TileMill)
 
 ### Step 1: Get TileMill
 Download and install [TileMill](https://www.mapbox.com/tilemill/) if you haven't done so already. If this is new to you: TileMill is an design studio by the amazing team at [Mapbox](mapbox.com) to create beautiful maps.
@@ -111,6 +114,34 @@ This will take a while. Once it's done: **Save it** and ...
 ... **move the "MBtiles"** into the data folder of your Tilehut.js directory. This will look like following:
 ![move tiles](readme-assets/tilemill_step_14_result.png)
 
+***
+
+## 1B. Create Vector Tiles (with GeoJSON & Tippecanoe)
+
+Let's take our `countries.geojson` file and turn it into a vector tile set. Lucky for us [Mapbox](mapbox.com) has built a great commandline tool called [tippecanoe](https://github.com/mapbox/tippecanoe). In order to install it on your machine, please follow the instructions [here](https://github.com/mapbox/tippecanoe#installation):
+
+```
+$ brew install tippecanoe
+```
+
+Once [tippecanoe](https://github.com/mapbox/tippecanoe) is installed, you can run the following on your `countries.geojson` file:
+
+```
+$ tippecanoe -o tiles-world-vector.mbtiles -z5 -pp countries.geojson 
+```
+What's happening here: 
+
+* **tippecanoe**: this calls the tippecanoe function
+* **-o tiles-world-vector**: says, "our output file will be called tiles-world-vector.mbtiles"
+* **-z5**: tells tippecanoe to only produce tiles to a max of zoom level 5.
+* **-pp**: means "no polygon splitting"
+* **countries.geojson**: is the geojson file of our countries.
+
+You can read about the other options for producing vector tiles [here](https://github.com/mapbox/tippecanoe#options).
+
+**And that's it! Now we have beautiful vector tiles to work with. Now let's set up our server. Keep going!**
+
+***
 
 ## 2. Run Tile Server
 ### Option 1: Via Localhost
@@ -195,3 +226,5 @@ If you can't connect via FTP, then you probably skipped the [preparations](#prep
 We included some example files into the repository which show you how to use [Leaflet JS](http://leafletjs.com/) or [Mapbox GL JS](https://www.mapbox.com/blog/mapbox-gl-js/) to display a map using your tileset.
 
 **Check:** `tilehut/examples/` ([Github](https://github.com/b-g/tilehut/tree/master/examples))
+
+

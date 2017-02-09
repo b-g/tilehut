@@ -42,13 +42,14 @@ You can of course also install Tilehut.js on your local machine or to any other 
 ## Tutorial: Getting Started with Tiles
 We prepared quite a comprehensive [tutorial](https://github.com/b-g/tilehut/tree/master/tutorial) which covers everything step-by-step. Starting from creating a tileset, to setting up OpenShift and finally using your own tileset.
 
-- [1. Create Tileset (in TileMill)](tutorial#1-create-tileset-in-tilemill)
+- [1A. Create a Raster/Bitmap Tileset (in TileMill)](tutorial#1-create-tileset-in-tilemill)
   - [Step 1: Get TileMill](tutorial#step-1-get-tilemill)
   - [Step 2: Create a new Project](tutorial#step-2-create-a-new-project)
   - [Step 3: Import Data](tutorial#step-3-import-data)
   - [Step 4: Style your Map](tutorial#step-4-style-your-map)
   - [(Optional Step 5: Add UTF-8 Grid)](tutorial#optional-step-5-add-utf-8-grid)
   - [Step 6: Export Map](tutorial#step-6-export-map)
+- [1B. Create Vector Tiles (with GeoJSON & Tippecanoe)](#1b-create-vector-tiles-with-geojson--tippecanoe)
 - [2. Run Tile Server](tutorial#2-run-tile-server)
   - [Option 1: Via Localhost](tutorial#option-1-via-localhost)
   - [Option 2: Via OpenShift](tutorial#option-2-via-openshift)
