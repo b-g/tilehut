@@ -49,7 +49,7 @@ We prepared quite a comprehensive [tutorial](https://github.com/b-g/tilehut/tree
   - [Step 4: Style your Map](tutorial#step-4-style-your-map)
   - [(Optional Step 5: Add UTF-8 Grid)](tutorial#optional-step-5-add-utf-8-grid)
   - [Step 6: Export Map](tutorial#step-6-export-map)
-- [1B. Create Vector Tiles (with GeoJSON & Tippecanoe)](#1b-create-vector-tiles-with-geojson--tippecanoe)
+- [1B. Create Vector Tiles (with GeoJSON & Tippecanoe)](tutorial#1b-create-vector-tiles-with-geojson--tippecanoe)
 - [2. Run Tile Server](tutorial#2-run-tile-server)
   - [Option 1: Via Localhost](tutorial#option-1-via-localhost)
   - [Option 2: Via OpenShift](tutorial#option-2-via-openshift)
