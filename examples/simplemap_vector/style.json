@@ -1,27 +1,28 @@
 {
-  "version": 7,
-  "sources": {
-    "mapbox": {
-      "type": "vector",
-      "url": "http://0.0.0.0:8000/tiles-world-vector/meta.json?vectortileflag=true",
-      "maxzoom": 15
-    }
-  },
-  "layers": [
-  {
-    "id": "background",
-    "paint": {
-      "background-color": "#C5D1ED"
+    "version": 8,
+    "sources": {
+        "tilehut": {
+            "type": "vector",
+            "tiles": [
+                "http://0.0.0.0:8000/tiles-world-vector/{z}/{x}/{y}.pbf"
+            ],
+            "maxzoom": 5
+        }
     },
-    "type": "background"
-  },
-  {
-    "source": "mapbox",
-    "source-layer": "admin-countries",
-    "paint": {
-      "fill-color": "#EDF0FD",
-      "fill-outline-color": "#FCFCFF"
-    },
-    "type": "fill"
-  }]
+    "layers": [{
+        "id": "background",
+        "paint": {
+            "background-color": "#C5D1ED"
+        },
+        "type": "background"
+    }, {
+        "id": "countries-fill",
+        "source": "tilehut",
+        "source-layer": "countriesgeojson",
+        "paint": {
+            "fill-color": "#EDF0FD",
+            "fill-outline-color": "#FCFCFF"
+        },
+        "type": "fill"
+    }]
 }
