@@ -10,6 +10,9 @@
     "Stephan Bogner <bognerstephan> (http://stephanbogner.de/)",
     "Stefan Landsbek <slandsbek> (http://47nord.de/)"
   ],
+  "engines": {
+    "node": ">= 0.10.0"
+  },
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +21,7 @@
   "dependencies": {
     "body-parser": "^1.16.0",
     "express": "^4.14.1",
-    "mbtiles": "^0.9.0"
+    "@mapbox/mbtiles": "^0.9.0"
   },
   "main": "server.js",
   "repository": {
