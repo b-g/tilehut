@@ -20,23 +20,26 @@ Drawing from these inspiring developments in the web mapping world, we bring you
 
 We're thrilled to bring you Tilehut.js and even more excited to see what projects you brew up! Happy mapping!
 
-## Your Own Hosted Tileserver in 5 Minutes
-1. Login to **[OpenShift](https://www.openshift.com/)** and create a **new application** (the free account will give you already a 1GB tileserver)
-2. Set Application Type as **"NodeJS"**
-3. Use `https://github.com/b-g/tilehut/` as **source code** for your Application
-4. Connect via **SFTP** to OpenShift and **drop a .MBtiles tileset** into the folder `/app-root/data/`
-5. Done!
+## Your Own Hosted Tileserver
+
+You can install Tilehut.js on your local machine or to any other server which supports node.js. This means we have a number of options - e.g. platforms as services (PaaS) - for deploying our tiles to the web. 
+
+We've tested a few services and have documented our methods as part of other tutorials. You're welcome to decide which service best fits your needs. So far we've tried/tested deployment to:
+
+- [Heroku](https://www.heroku.com) // [See Part 3+ in this tutorial on Vector Tiles: Your own Tilehut](https://github.com/joeyklee/hello-vector-tiles#part-3-our-very-own-tilehut)
+- [DigitalOcean](https://www.digitalocean.com/) // [See documentation from the EnergyExplorer.ca project](https://github.com/ubccalp/tileserver/blob/master/README-DigitalOcean-Setup.md)
+
+<!-- If you're looking for a docker container for this task, you might also check out [tilehut-docker](https://hub.docker.com/r/joeyklee/tilehut-docker/). NOTE: Last update was a year ago and may not be up to date. -->
+
+After deploying to your chosen platform, you can inspect your data via:
 
 Now you can inspect your map ...
 
-`{appname}-{youropenshiftdomain}.rhcloud.com/{tilesetname}/map`
+`{yourURL}.com/{tilesetname}/map`
 
 ... and the tiles are ready to use via
 
-`{appname}-{youropenshiftdomain}.rhcloud.com/{tilesetname}/{z}/{x}/{y}.png`
-
-
-You can of course also install Tilehut.js on your local machine or to any other server which supports node.js.
+`{yourURL}.com/{tilesetname}/{z}/{x}/{y}.png` (for raster tiles) or `{yourURL}.com/{tilesetname}/{z}/{x}/{y}.pbf` (for vector tiles)
 
 
 ## Tutorial: Getting Started with Tiles
@@ -52,7 +55,7 @@ We prepared quite a comprehensive [tutorial](https://github.com/b-g/tilehut/tree
 - [1B. Create Vector Tiles (with GeoJSON & Tippecanoe)](tutorial#1b-create-vector-tiles-with-geojson--tippecanoe)
 - [2. Run Tile Server](tutorial#2-run-tile-server)
   - [Option 1: Via Localhost](tutorial#option-1-via-localhost)
-  - [Option 2: Via OpenShift](tutorial#option-2-via-openshift)
+  - [Option 2: Via Heroku or DigitalOcean](tutorial#option-2-via-paas)
     - [Preparations:](tutorial#preparations)
     - [Easy Setup:](tutorial#easy-setup)
     - [Expert Setup:](tutorial#expert-setup)

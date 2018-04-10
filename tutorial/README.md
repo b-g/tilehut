@@ -15,7 +15,7 @@ Getting Started with Tiles
 - [1B. Create Vector Tiles (with GeoJSON & Tippecanoe)](#1b-create-vector-tiles-with-geojson--tippecanoe)
 - [2. Run Tile Server](#2-run-tile-server)
   - [Option 1: Via Localhost](#option-1-via-localhost)
-  - [Option 2: Via OpenShift](#option-2-via-openshift)
+  - [Option 2: Via Heroku or DigitalOcean](#option-2-via-paas)
     - [Preparations:](#preparations)
     - [Easy Setup:](#easy-setup)
     - [Expert Setup:](#expert-setup)
@@ -152,75 +152,23 @@ You can inspect tilesets (even unknown ones) by opening them in your **browser**
 
 ![sdsfgv](readme-assets/localhost_step_02_mapPreview.png)
 
-### Option 2: Via OpenShift
-[OpenShift](https://www.openshift.com/) is a service, where you can set up a cloud-based application. The Basic functionality is free.
+### Option 2: Via Heroku or DigitalOcean
+We've tested a few services and have documented our methods as part of other tutorials. You're welcome to decide which service best fits your needs. So far we've tried/tested deployment to:
 
-If you are new to Openshift, there is a [beginner's guide](https://developers.openshift.com/en/getting-started-overview.html) for you.
+- [Heroku](https://www.heroku.com) // [See Part 3+ in this tutorial on Vector Tiles: Your own Tilehut](https://github.com/joeyklee/hello-vector-tiles#part-3-our-very-own-tilehut)
+- [DigitalOcean](https://www.digitalocean.com/) // [See documentation from the EnergyExplorer.ca project](https://github.com/ubccalp/tileserver/blob/master/README-DigitalOcean-Setup.md)
 
-#### Preparations:
-- Install the [Openshift Client Tools](https://developers.openshift.com/en/getting-started-client-tools.html)
+<!-- If you're looking for a docker container for this task, you might also check out [tilehut-docker](https://hub.docker.com/r/joeyklee/tilehut-docker/). NOTE: Last update was a year ago and may not be up to date. -->
 
+After deploying to your chosen platform, you can inspect your data via:
 
-#### Easy Setup:
-Click **"Create your first application"**.
-![sdsfgv](readme-assets/openshift_easy_step_01_firstApplication.png)
+Now you can inspect your map ...
 
-Select **Node.js** as your type of application.
-![sdsfgv](readme-assets/openshift_easy_step_02_applicationType.png)
+`{yourURL}.com/{tilesetname}/map`
 
-Choose the **name of your application** (and your OpenShift domain name) and use `https://github.com/b-g/tilehut/` as **Source Code**, then OpenShift will just grab the code from the repository.
-![sdsfgv](readme-assets/openshift_easy_step_03_applicationDetails.png)
+... and the tiles are ready to use via
 
-Click **Continue**.
-![sdsfgv](readme-assets/openshift_easy_step_04_applicationFinish.png)
-
-**Done!** Hence you can "Expert Setup" and follow the tutorial at **["Check The Status"](#check-the-status)**
-
-#### Expert Setup:
-##### Step 1: Learn Git
-Openshift uses [Git](http://git-scm.com/). Git is a versioning control software that helps you to keep track of your files over time. 
- 
-[Github](https://try.github.io/) has a fun introduction into Git, and [this guy](http://betterexplained.com/articles/a-visual-guide-to-version-control/) did a nice writeup why you should use somekind version control (there are alternatives to git). So if you don't know anything about it. Now is the time to dive in.
-
-##### Step 2: Create New Project
-**Log into [Openshift](https://www.openshift.com/)** or and create a **new project**. 
-Select Application-type: **Node.js** and fill out the rest.
-
-![move tiles](readme-assets/openshift_hard_step_01_openshiftApplication.png)
-
-##### Step 3: Set Up Repository
-You can either way just push the Tilehut.js repository onto Openshift or clone the repo and add the files you need. Grab the ssh-key from your application site on Openshift.
-
-     git clone ssh://somekey@projectname-youropenshiftdomain.rhcloud.com/~/git/projectname.git/
-     
-or:
-
-     git push openshift master --force
-     
-
-#### Check the Status
-go to `http://appname-youropenshiftdomain.rhcloud.com/ping` and check if the server returns **"tilehut says pong!"**. 
-
-If it does you are almost there. If it doesn't the repository probably didn't sync correctly. But you can check that also via FTP (see next step).
-![sdsfgv](readme-assets/openshift_general_step_01_pingPong.png)
-
-#### Add tiles via SFTP
-**Connect via SFTP** to Openshift. We use [Cyberduck](https://cyberduck.io/) to connect, but it will work with [Filezilla](https://filezilla-project.org/) or every other SFTP client as well.
-
-**Select SFTP** as protocol, then take the **server name** and the **username** from the OpenShift page for your application. Tick the **"Use Public Authentication"** checkbox and select "**id_rsa**" (It come with the git setup and can be found on your local hard drive here: `~/.ssh/id_rsa` e.g. /Users/benedikt/.ssh/id_rsa).
-
-![sdsfgv](readme-assets/openshift_general_step_02_sftpLogin.png)
-
-
-**Navigate** to `app-root/data/` in Cyberduck (or your FTP client) and **upload the tilesets** you want to host.
-![sdsfgv](readme-assets/openshift_generel_step_03_cyberDuck.png)
-If you can't connect via FTP, then you probably skipped the [preparations](#preparations) step or you chose FTP instead of SFTP. Then your rsa-keys have not been configured.
-
-
-#### Test the Tiles
-**Goto** `{appname}-{youropenshiftdomain}.rhcloud.com/{tilesetname}/map` and look at the beautiful map you just hosted. Well done! You can now use them in your website or anywhere else. For a quickstart on this you might want to check out our examples folder.
-
-![sdsfgv](readme-assets/openshift_general_step_04_result.png)
+`{yourURL}.com/{tilesetname}/{z}/{x}/{y}.png` (for raster tiles) or `{yourURL}.com/{tilesetname}/{z}/{x}/{y}.pbf` (for vector tiles)
 
 ## 3. Use The Tileset
 We included some example files into the repository which show you how to use [Leaflet JS](http://leafletjs.com/) or [Mapbox GL JS](https://www.mapbox.com/blog/mapbox-gl-js/) to display a map using your tileset.
