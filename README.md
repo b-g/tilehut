@@ -92,17 +92,17 @@ Get the meta informations e.g. lat/lon bounds, min and max zoom level etc. via `
 
 Check whether you server works by calling `server/ping`. Server should respond: "tilehut says pong!"
 
-### Development
+## Development
 
 `$ npm run watch`
 
-### Docker
+## Docker
 
-#### Build Docker Image
+### Build Docker Image
 
 `$ docker build . -t tilehut/tilehut`
 
-#### Run Docker Image
+### Run Docker Image
 
 `$ docker run -p 8000:8000 -v path/to/tiles/data:/usr/src/app/data tilehut/tilehut:latest`
 
