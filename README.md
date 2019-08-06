@@ -1,9 +1,8 @@
 ![tile hut cover](assets/tilehutjs_title.png)
 
-Tilehut.js
-==========
-### A modest, but cozy home for your map tiles
+# Tilehut.js
 
+### A modest, but cozy home for your map tiles
 
 Tilehut.js is a project by:
 
@@ -12,8 +11,8 @@ Tilehut.js is a project by:
 - [Stephan Bogner](http://stephanbogner.de)
 - [Stefan Landsbek](http://47nord.de) (47Nord)
 
-
 ## Introduction
+
 Take all the best things about the interactivity of the web and couple it with the exploratory nature of maps, and you get the modern web map tile. Tiles are one of the fundamental building blocks of modern web maps, providing a clever solution to zoom, pan, click, and interact with the infinity of discoverable things living in geospace. Underlying map tiles is a tasty combination of awesome technologies like [Mike Migurski's](http://mike.teczno.com/) [Tilestache](http://tilestache.org/) and the brilliant tools being built by [Mapbox](mapbox.com).
 
 Drawing from these inspiring developments in the web mapping world, we bring you Tilehut.js, a modest, but cozy home for your map tiles. Tilehut.js is built to serve the tiles for your average web mapping project and is essentially a simple wrapper around Mapbox's [node-mbtiles](https://github.com/mapbox/node-mbtiles). Tilehut.js is indeed a humble tile server and is certainly not a replacement for the all excellent support that comes with Mapbox hosting for those more demanding or bigger projects.
@@ -22,7 +21,7 @@ We're thrilled to bring you Tilehut.js and even more excited to see what project
 
 ## Your Own Hosted Tileserver
 
-You can install Tilehut.js on your local machine or to any other server which supports node.js. This means we have a number of options - e.g. platforms as services (PaaS) - for deploying our tiles to the web. 
+You can install Tilehut.js on your local machine or to any other server which supports node.js. This means we have a number of options - e.g. platforms as services (PaaS) - for deploying our tiles to the web.
 
 We've tested a few services and have documented our methods as part of other tutorials. You're welcome to decide which service best fits your needs. So far we've tried/tested deployment to:
 
@@ -41,8 +40,8 @@ Now you can inspect your map ...
 
 `{yourURL}.com/{tilesetname}/{z}/{x}/{y}.png` (for raster tiles) or `{yourURL}.com/{tilesetname}/{z}/{x}/{y}.pbf` (for vector tiles)
 
-
 ## Tutorial: Getting Started with Tiles
+
 We prepared quite a comprehensive [tutorial](https://github.com/b-g/tilehut/tree/master/tutorial) which covers everything step-by-step. Starting from creating a tileset, to setting up OpenShift and finally using your own tileset.
 
 - [1A. Create a Raster/Bitmap Tileset (in TileMill)](tutorial#1-create-tileset-in-tilemill)
@@ -74,9 +73,11 @@ See the [examples](https://github.com/b-g/tilehut/tree/master/examples) folder f
 ## API
 
 ### Inspector
+
 Visit `server/{tilesetname}/map` to inspect a tileset. This works for raster, utf-8 and vector tiles.
 
 ### ZXY
+
 The tiles are served via `server/{tileset-name}/{z}/{x}/{y}.{extension}` e.g.:
 
 - bitmap e.g. `server/tiles-world-simple/4/7/7.png`
@@ -84,17 +85,31 @@ The tiles are served via `server/{tileset-name}/{z}/{x}/{y}.{extension}` e.g.:
 - utf-8 grid e.g. `server/tiles-world-utfgrid/4/10/6.grid.json`
 
 ### Meta Information
+
 Get the meta informations e.g. lat/lon bounds, min and max zoom level etc. via `server/{tileset-name}/meta.json`
 
 ### Ping (is my server running?)
+
 Check whether you server works by calling `server/ping`. Server should respond: "tilehut says pong!"
 
 ### Development
+
 `$ npm run watch`
+
+### Docker
+
+#### Build Docker Image
+
+`$ docker build . -t tilehut/tilehut`
+
+#### Run Docker Image
+
+`$ docker run -p 8000:8000 -v path/to/tiles/data:/usr/src/app/data tilehut/tilehut:latest`
+
+**NOTE**: When no volume is provided Tilehut will use the tile data from `/data`
 
 ## Acknowledgments
 
 - Tilehut.js is just a wrapper of [node-mbtiles](https://github.com/mapbox/node-mbtiles) by [Mapbox](https://www.mapbox.com/)
 - Tilehut.js was inspired by [Tilestache](http://tilestache.org/) of [Mike Migurski](http://mike.teczno.com/)
 - Tilehut.js was kicked off by Tobin Bradley's great [tutorial](https://www.youtube.com/watch?v=CwAQSKsSQhI) on writing your own [mbtiles-server](https://github.com/tobinbradley/mbtiles-server)
-
