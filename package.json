@@ -19,9 +19,9 @@
     "watch": "watch 'node server.js' ."
   },
   "dependencies": {
+    "@mapbox/mbtiles": "^0.11.0",
     "body-parser": "^1.16.0",
-    "express": "^4.14.1",
-    "@mapbox/mbtiles": "^0.9.0"
+    "express": "^4.14.1"
   },
   "main": "server.js",
   "repository": {
