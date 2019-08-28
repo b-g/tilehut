@@ -13,7 +13,6 @@ COPY ./package.json /usr/src/app
 RUN npm install --unsafe-perm
 
 # Copy needed files
-COPY ./node_modules /usr/src/app/node_modules
 COPY ./data /usr/src/app/data
 COPY ./static /usr/src/app/static
 COPY ./config.js /usr/src/app
